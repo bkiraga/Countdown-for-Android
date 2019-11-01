@@ -2,10 +2,8 @@
 
 # CA326 Year 3 Project Proposal Form
 
-**SECTION A
-Project Title:** ​Countdown for Android
-**Student 1 Name** ​: Gheorghe - Vasile Burac ID Number: 16452524
-**Student 2 Name** ​: Bartlomiej Kiraga ID Number: 17327333
+**SECTION A |
+Project Title:** ​Countdown for Android  |
 **Staff Member Consulted** ​: Dr. Darragh O’Brien
 
 ## Project Description
