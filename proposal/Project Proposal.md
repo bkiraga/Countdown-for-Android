@@ -2,7 +2,7 @@
 
 # CA326 Year 3 Project Proposal Form
 
-**SECTION A
+**SECTION A |
 Project Title:** ​Countdown for Android  |
 **Staff Member Consulted** ​: Dr. Darragh O’Brien
 
