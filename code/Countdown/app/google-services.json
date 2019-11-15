@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1015068243027",
+    "firebase_url": "https://countdownforandroid-20103.firebaseio.com",
+    "project_id": "countdownforandroid-20103",
+    "storage_bucket": "countdownforandroid-20103.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015068243027:android:d5d991b7d393f7993702a6",
+        "android_client_info": {
+          "package_name": "com.example.countdown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015068243027-7ljuu06hr4gottve9uuqng6nqsur7nbs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXgCX1Kkm-rtlXujVLRd3RYEQs4FPhWEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015068243027-7ljuu06hr4gottve9uuqng6nqsur7nbs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
