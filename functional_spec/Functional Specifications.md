@@ -425,7 +425,7 @@ The functionality of the system will be monitored and in the event of a componen
 **5.1 Online Game Play**
 
 The following diagram details the user interacting with the system in order to play the game online. The user signs up/logs in, then the user joins a lobby, plays the game views the optimal solutions and obtains his score. The user can view the leaderboard as well.
-[](Functional Specification images/Project architecture - Core functionality.png)
+[](./Functional Specification images/Project architecture - Core functionality.png)
 
 
 
@@ -445,7 +445,7 @@ The following diagram illustrates the user interacting with the system in order 
 The app, generally, attempts to allow for the same functionality offline. The user signs up/logs in, joins a lobby to play a game against a bot, views the optimal solution, views their score and ranking against the bot.
 
 ##
- ![](Project architecture - LOCAL functionality.png)
+ ![](./Project architecture - LOCAL functionality.png)
 ##
 
 
