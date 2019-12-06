@@ -110,7 +110,7 @@ The requirements for the game implementation, from the users&#39; point of view,
 
 
 
-2.3 Operational Scenarios
+## Operational Scenarios
 
 **2.3.1 User creates a local account**
 
