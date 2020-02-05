@@ -22,13 +22,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        auth = Arrays.asList<AuthUI.IdpConfig>(
-            AuthUI.IdpConfig.EmailBuilder().build() //email login functionality based on firebaseUI
-            //AuthUI.IdpConfig.FacebookBuilder().build()
-        )
+        if (FirebaseAuth.getInstance().getCurrentUser() === null){
+            auth = Arrays.asList<AuthUI.IdpConfig>(
+                AuthUI.IdpConfig.EmailBuilder().build() //email login functionality based on firebaseUI
+                //AuthUI.IdpConfig.FacebookBuilder().build()
+            )
+            showSignIn()
+            setupListener()
 
-        showSignIn()
-        setupListener()
+        } //else { if the user is already signed in, we go to next screen (choose game type M vs S)
+
+        //}
+
+
+
 
     }
 
