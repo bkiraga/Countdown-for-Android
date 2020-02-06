@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Countdown</string>
+    <string name="single_player_button">Single Player</string>
+    <string name="multiplayer_button">Multiplayer</string>
+    <string name="logo_description">App Logo</string>
+    <string name=""></string>
+</resources>
