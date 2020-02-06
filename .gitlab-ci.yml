@@ -1,0 +1,9 @@
+image: openjdk:8-jdk
+
+variables:
+    ANDROID_COMPILE_SDK: "28"
+    ANDROID_BUILD_TOOLS: "28"
+
+before_script:
+
+

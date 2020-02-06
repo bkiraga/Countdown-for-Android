@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Countdown</string>
+
+    <string name="facebook_app_id" translatable="false">2583567531736154</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2583567531736154</string>
+
+</resources>
