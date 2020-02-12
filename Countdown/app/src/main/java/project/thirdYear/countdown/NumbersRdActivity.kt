@@ -22,33 +22,56 @@ class NumbersRdActivity : AppCompatActivity() {
         val no6 : TextView = findViewById(R.id.no6)
         val targetNo : TextView = findViewById(R.id.targetNo)
 
-        var numberFields = arrayListOf<TextView>(no1,no2,no3,no4,no5,no6)
         var largeNums = arrayListOf<Int>(25,50,75,100)
         var smallNums = arrayListOf<Int>(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10)
         var counter : Int = 0
 
-        if (counter < 6) {
-
-            largeNumberButton.setOnClickListener {
-                var numF = numberFields.get(counter)
-                var index = Random().nextInt(largeNums.size)
-                var num = largeNums.get(index)
-                largeNums.remove(num)
-                numF.text = num.toString()
-                counter = counter + 1
+        fun assign(counter : Int) : TextView {
+            var numF = when (counter) {
+                0 -> no1
+                1 -> no2
+                2 -> no3
+                3 -> no4
+                4 -> no5
+                5 -> no6
+                else -> targetNo
             }
-            smallNumberButton.setOnClickListener {
-                var numF = numberFields.get(counter)
+            return numF
+        }
+
+        smallNumberButton.setOnClickListener {
+            if (smallNums.size > 0 && counter < 6) {
                 var index = Random().nextInt(smallNums.size)
                 var num = smallNums.get(index)
                 smallNums.remove(num)
+                var numF = assign(counter)
                 numF.text = num.toString()
-                counter = counter + 1
+                counter += 1
             }
+            if (counter == 6){
+                var target = Random().nextInt(1000)
+                targetNo.text = target.toString()
+                smallNumberButton.setEnabled(false)
+                largeNumberButton.setEnabled(false)
+                }
+
         }
-        else {
-            var num = Random().nextInt(1000)
-            targetNo.text = counter.toString()
+        largeNumberButton.setOnClickListener {
+            if (largeNums.size > 0 && counter < 6) {
+                var index = Random().nextInt(largeNums.size)
+                var num = largeNums.get(index)
+                largeNums.remove(num)
+                var numF = assign(counter)
+                numF.text = num.toString()
+                counter += 1
+            }
+            if (counter == 6){
+                var target = Random().nextInt(1000)
+                targetNo.text = target.toString()
+                largeNumberButton.setEnabled(false)
+                smallNumberButton.setEnabled(false)
+                }
+
         }
     }
 }
