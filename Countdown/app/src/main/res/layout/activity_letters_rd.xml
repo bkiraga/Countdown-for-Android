@@ -41,4 +41,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
+
+    <TableLayout
+        android:layout_width="409dp"
+        android:layout_height="290dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="50dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/lt1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt8"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+
+            <TextView
+                android:id="@+id/lt9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="_" />
+        </TableRow>
+
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,12 +12,12 @@
         android:layout_height="49dp"
         android:layout_marginBottom="84dp"
         android:text="@string/normal_game"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/lettersRdButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/lettersRdButton"
         android:layout_width="289dp"
         android:layout_height="49dp"
         android:layout_marginBottom="84dp"

@@ -11,10 +11,15 @@ class SinglePlayerMenu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_player_menu)
 
-        val singlePlayerButton: Button = findViewById(R.id.numbersRdButton)
+        val numbersRdButton: Button = findViewById(R.id.numbersRdButton)
+        val lettersRdButton: Button = findViewById(R.id.lettersRdButton)
 
-        singlePlayerButton.setOnClickListener {
+        numbersRdButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity::class.java)
+            startActivity(intent)
+        }
+        lettersRdButton.setOnClickListener {
+            val intent = Intent(this, LettersRdActivity::class.java)
             startActivity(intent)
         }
     }
