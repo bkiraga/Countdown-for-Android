@@ -1,7 +1,21 @@
 <resources>
     <string name="app_name">Countdown</string>
-
-    <string name="facebook_app_id" translatable="false">2583567531736154</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb2583567531736154</string>
-
+    <string name="btn_singlePlayer_choice">Single Player</string>
+    <string name="btn_multiplayer_choice">Multiplayer</string>
+    <string name="logo_choice">App Logo</string>
+    <string name="choice_text">Play Countdown</string>
+    <string name="em_pw_field">Password...</string>
+    <string name="e_btn_signin">Sign In</string>
+    <string name="email_info">Email Sign in</string>
+    <string name="email_field">Email...</string>
+    <string name="app_logo_description">App logo image</string>
+    <string name="btn_create_account">Sign up</string>
+    <string name="playerOne">Player image</string>
+    <string name="playerTwo">Player image</string>
+    <string name="playerThree">Player image</string>
+    <string name="playerFour">Player image</string>
+    <string name="chat_info">Chat with your opponent.</string>
+    <string name="chat_input">Enter text...</string>
+    <string name="btn_chat_send">Send</string>
+    <string name="texts_received">Texts received</string>
 </resources>

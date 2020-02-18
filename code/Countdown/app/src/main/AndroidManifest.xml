@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="project.thirdYear.countdown">
 
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.countdown">
+    <dist:module dist:instant="true" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MpNumbersRound"></activity>
+        <activity android:name=".JoinMatch" />
+        <activity android:name=".FirebaseLogin" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +23,5 @@
             </intent-filter>
         </activity>
     </application>
-
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 
 </manifest>

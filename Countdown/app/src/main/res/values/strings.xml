@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Countdown</string>
-    <string name="btn_singlePlayer_choice">Single Player</string>
-    <string name="btn_multiplayer_choice">Multiplayer</string>
-    <string name="logo_choice">App Logo</string>
-    <string name="choice_text">Play Countdown</string>
-</resources>

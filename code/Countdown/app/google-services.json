@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015068243027:android:d5d991b7d393f7993702a6",
+        "mobilesdk_app_id": "1:1015068243027:android:3dc0ee557260bf823702a6",
         "android_client_info": {
-          "package_name": "com.example.countdown"
+          "package_name": "project.thirdYear.countdown"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1015068243027-o70oae0d7ojl74vtu13tme519hjvq4qm.apps.googleusercontent.com",
+          "client_id": "1015068243027-lb4ofig3ktokr9057hjqsq2936sq6rai.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.countdown",
+            "package_name": "project.thirdYear.countdown",
             "certificate_hash": "9d1d7a47b6db44328296f5426265b7c541a65aab"
           }
         },
@@ -36,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1015068243027-7ljuu06hr4gottve9uuqng6nqsur7nbs.apps.googleusercontent.com",
+              "client_id": "1015068243027-4rrqtqqvfs9jt86dh7homjubrn6dtrff.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

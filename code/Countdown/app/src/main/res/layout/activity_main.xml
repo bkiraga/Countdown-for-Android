@@ -1,31 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_sign_out"
-        android:text="SIGNOUT"
+        android:id="@+id/btn_singlePlayer_choice"
+        android:layout_width="295dp"
+        android:layout_height="46dp"
+        android:text="@string/btn_singlePlayer_choice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82" />
 
-        android:layout_centerInParent="true"
-        android:enabled="false"
+    <ImageView
+        android:id="@+id/logo_choice"
+        android:layout_width="102dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/logo_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></Button>
+    <TextView
+        android:id="@+id/choice_text"
+        android:layout_width="111dp"
+        android:layout_height="24dp"
+        android:text="@string/choice_text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_singlePlayer_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_choice"
+        app:layout_constraintVertical_bias="0.114" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+    <Button
+        android:id="@+id/btn_multiplayer_choice"
+        android:layout_width="289dp"
+        android:layout_height="45dp"
+        android:text="@string/btn_multiplayer_choice"
+        app:layout_constraintBottom_toTopOf="@+id/btn_singlePlayer_choice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice_text"
+        app:layout_constraintVertical_bias="0.801" />
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
