@@ -4,18 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NumbersRdActivity">
-
-    <Button
-        android:id="@+id/largeNumberButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Large number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".NumberRdActivity2">
 
     <EditText
         android:id="@+id/editText3"
@@ -30,17 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.049"
         tools:text="@string/numbers_round" />
-
-    <Button
-        android:id="@+id/smallNumberButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Small number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/targetNo"

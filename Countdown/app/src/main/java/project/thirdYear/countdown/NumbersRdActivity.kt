@@ -1,5 +1,6 @@
 package project.thirdYear.countdown
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -14,6 +15,9 @@ class NumbersRdActivity : AppCompatActivity() {
 
         val largeNumberButton : Button = findViewById(R.id.largeNumberButton)
         val smallNumberButton : Button = findViewById(R.id.smallNumberButton)
+        val solveButton : Button = findViewById(R.id.solveButton)
+        solveButton.setEnabled(false)
+
         val no1 : TextView = findViewById(R.id.no1)
         val no2 : TextView = findViewById(R.id.no2)
         val no3 : TextView = findViewById(R.id.no3)
@@ -53,6 +57,7 @@ class NumbersRdActivity : AppCompatActivity() {
                 targetNo.text = target.toString()
                 smallNumberButton.setEnabled(false)
                 largeNumberButton.setEnabled(false)
+                solveButton.setEnabled(true)
                 }
 
         }
@@ -70,8 +75,12 @@ class NumbersRdActivity : AppCompatActivity() {
                 targetNo.text = target.toString()
                 largeNumberButton.setEnabled(false)
                 smallNumberButton.setEnabled(false)
+                solveButton.setEnabled(true)
                 }
-
+        }
+        solveButton.setOnClickListener {
+            val intent = Intent(this, NumberRdActivity2 ::class.java)
+            startActivity(intent)
         }
     }
 }
