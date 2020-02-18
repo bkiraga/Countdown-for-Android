@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MpNumbersRound"></activity>
+        <activity android:name=".NumbersRdActivity2"></activity>
+        <activity android:name=".LettersRdActivity" />
+        <activity android:name=".NumbersRdActivity" />
+        <activity android:name=".SinglePlayerMenu" />
+        <activity android:name=".MpNumbersRound" />
         <activity android:name=".JoinMatch" />
         <activity android:name=".FirebaseLogin" />
         <activity android:name=".MainActivity">

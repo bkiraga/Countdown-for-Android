@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FirebaseLogin::class.java)
             startActivity(intent)
         }
+        val singlePlayerButton : Button = findViewById(R.id.singlePlayerButton)
+
+        singlePlayerButton.setOnClickListener {
+            val intent = Intent(this, SinglePlayerMenu::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onStart(){

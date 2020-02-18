@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_singlePlayer_choice"
+        android:id="@+id/singlePlayerButton"
         android:layout_width="295dp"
         android:layout_height="46dp"
         android:text="@string/btn_singlePlayer_choice"
@@ -34,7 +34,7 @@
         android:layout_width="111dp"
         android:layout_height="24dp"
         android:text="@string/choice_text"
-        app:layout_constraintBottom_toTopOf="@+id/btn_singlePlayer_choice"
+        app:layout_constraintBottom_toTopOf="@+id/singlePlayerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_choice"
@@ -45,7 +45,7 @@
         android:layout_width="289dp"
         android:layout_height="45dp"
         android:text="@string/btn_multiplayer_choice"
-        app:layout_constraintBottom_toTopOf="@+id/btn_singlePlayer_choice"
+        app:layout_constraintBottom_toTopOf="@+id/singlePlayerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choice_text"
