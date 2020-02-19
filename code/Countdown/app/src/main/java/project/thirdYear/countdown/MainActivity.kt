@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val btn_mplayer = findViewById(R.id.btn_multiplayer_choice) as Button
         btn_mplayer.setOnClickListener{
-            val intent = Intent(this, FirebaseLogin::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
         val singlePlayerButton : Button = findViewById(R.id.singlePlayerButton)

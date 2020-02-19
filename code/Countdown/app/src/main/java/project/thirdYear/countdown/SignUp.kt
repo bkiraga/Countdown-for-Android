@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 
 
-class FirebaseLogin : AppCompatActivity() {
+class SignUp : AppCompatActivity() {
 
     private var mAuth = FirebaseAuth.getInstance()
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -86,6 +86,7 @@ class FirebaseLogin : AppCompatActivity() {
         }
 
     }
+
 
     private fun signIn(){
         val signInIntent = googleSignInClient.signInIntent

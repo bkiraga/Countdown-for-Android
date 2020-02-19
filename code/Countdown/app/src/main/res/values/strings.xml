@@ -18,4 +18,9 @@
     <string name="chat_input">Enter text...</string>
     <string name="btn_chat_send">Send</string>
     <string name="texts_received">Texts received</string>
+    <string name="signIn_info">Sign in</string>
+    <string name="btn_signIn">Sign In</string>
+    <string name="signIn_passw_field">Password...</string>
+    <string name="signIn_email_field">Email...</string>
+    <string name="signIn_txt">Join now.</string>
 </resources>
