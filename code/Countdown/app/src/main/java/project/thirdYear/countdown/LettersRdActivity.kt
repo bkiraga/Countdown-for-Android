@@ -43,7 +43,9 @@ class LettersRdActivity : AppCompatActivity() {
             "S",
             "T",
             "V",
+            "W",
             "X",
+            "Y",
             "Z"
         )
         var counter: Int = 0
