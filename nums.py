@@ -16,7 +16,7 @@ def next_op(n):
     return stack
 
 
-
+                
 operators = {
     "+" : lambda x, y: x + y,
     "-" : lambda x, y: x - y,

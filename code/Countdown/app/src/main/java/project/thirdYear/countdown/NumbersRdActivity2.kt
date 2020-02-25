@@ -14,7 +14,7 @@ class NumbersRdActivity2 : AppCompatActivity() {
             var solver: NumsSolver = NumsSolver()
             var nums = arrayListOf(75,8,6,10,25,7)
             var answer = solver.solve(nums, 785)
-            answerText.text = "abc"
+            answerText.text = answer.toString()
         }
     }
 }
