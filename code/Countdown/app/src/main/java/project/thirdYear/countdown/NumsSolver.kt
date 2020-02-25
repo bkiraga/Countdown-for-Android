@@ -1,5 +1,7 @@
 package project.thirdYear.countdown
 
+import android.text.TextUtils.substring
+
 class NumsSolver {
 
     fun next_op(n:Int): ArrayList<String>{
@@ -55,11 +57,15 @@ class NumsSolver {
             var num: Int = list.get(0)
 
             for (s in second) {
+                var s_total = (operators[s.substring(0,1)]).invoke(num,s.substring(1).toInt())
                 for (t in third) {
+                    var t_total = (operators[t.substring(0,1)]).invoke(s_total,t.substring(1).toInt())
                     for (o in fourth) {
+                        var o_total = (operators[o.substring(0,1)]).invoke(t_total,o.substring(1).toInt())
                         for (i in fifth) {
+                            var i_total = (operators[i.substring(0,1)]).invoke(o_total,i.substring(1).toInt())
                             for (x in sixth) {
-
+                                var x_total = (operators[x.substring(0,1)]).invoke(i_total,x.substring(1).toInt())
                             }
 
                         }
