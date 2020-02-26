@@ -57,32 +57,52 @@ class NumsSolver {
             var num: Int = list.get(0)
 
             for (s in second) {
-                var s_total = (operators[s.substring(0,1)])!!.invoke(num,s.substring(1).toInt())
-                if (s_total == target){
-                    result.add(num.toString() + s.substring(0,1) + s.substring(1) + "=" + s_total.toString())
-                }
-                for (t in third) {
-                    var t_total = (operators[t.substring(0,1)])!!.invoke(s_total,t.substring(1).toInt())
-                    if (t_total == target){
-                        result.add(num.toString() + s.substring(0,1) + s.substring(1) + t.substring(0,1) + t.substring(1) + "=" + t_total.toString())
+                var operator1 = s.substring(0, 1)
+                var num1 = s.substring(1)
+                if (!(((operator1 == "-" && num < num1.toInt()) || ((operator1 == "/" && num.rem(num1.toInt()) != 0))))) {
+                    var s_total = operators[operator1]!!.invoke(num, num1.toInt())
+                    if (s_total == target) {
+                        result.add(num.toString() + operator1 + num1 + "=" + s_total.toString() + "\n")
                     }
-                    for (o in fourth) {
-                        var o_total = (operators[o.substring(0,1)])!!.invoke(t_total,o.substring(1).toInt())
-                        if (o_total == target){
-                            result.add(num.toString() + s.substring(0,1) + s.substring(1) + t.substring(0,1) + t.substring(1) + o.substring(0,1) + o.substring(1) + "=" + o_total.toString())
-                        }
-                        for (i in fifth) {
-                            var i_total = (operators[i.substring(0,1)])!!.invoke(o_total,i.substring(1).toInt())
-                            if (i_total == target){
-                                result.add(num.toString() + s.substring(0,1) + s.substring(1) + t.substring(0,1) + t.substring(1) + o.substring(0,1) + o.substring(1) + i.substring(0,1) + i.substring(1)+ "=" + i_total.toString())
+                    for (t in third) {
+                        var operator2 = t.substring(0, 1)
+                        var num2 = t.substring(1)
+                        if (!(((operator2 == "-" && s_total < num2.toInt()) || ((operator2 == "/" && s_total.rem(num2.toInt()) != 0))))) {
+                            var t_total = operators[operator2]!!.invoke(s_total, num2.toInt())
+                            if (t_total == target) {
+                                result.add(num.toString() + operator1 + num1 + operator2 + num2 + "=" + t_total.toString() + "\n")
                             }
-                            for (x in sixth) {
-                                var x_total = (operators[x.substring(0,1)])!!.invoke(i_total,x.substring(1).toInt())
-                                if (x_total == target){
-                                    result.add(num.toString() + s.substring(0,1) + s.substring(1) + t.substring(0,1) + t.substring(1) + o.substring(0,1) + o.substring(1) + o.substring(1) + i.substring(0,1) + i.substring(1) + x.substring(0,1) + x.substring(1) + "=" + x_total.toString())
+                            for (o in fourth) {
+                                var operator3 = o.substring(0, 1)
+                                var num3 = o.substring(1)
+                                if (!(((operator3 == "-" && t_total < num3.toInt()) || ((operator3 == "/" && t_total.rem(num3.toInt()) != 0))))) {
+                                    var o_total = operators[operator3]!!.invoke(t_total, num3.toInt())
+                                    if (o_total == target) {
+                                        result.add(num.toString() + operator1 + num1 + operator2 + num2 + operator3 + num3 + "=" + o_total.toString() + "\n")
+                                    }
+                                    for (i in fifth) {
+                                        var operator4 = i.substring(0, 1)
+                                        var num4 = i.substring(1)
+                                        if (!(((operator4 == "-" && o_total < num4.toInt()) || ((operator4 == "/" && o_total.rem(num4.toInt()) != 0))))) {
+                                            var i_total = operators[operator4]!!.invoke(o_total, num4.toInt())
+                                            if (i_total == target) {
+                                                result.add(num.toString() + operator1 + num1 + operator2 + num2 + operator3 + num3 + operator4 + num4 + "=" + i_total.toString() + "\n")
+                                            }
+                                            for (x in sixth) {
+                                                var operator5 = x.substring(0, 1)
+                                                var num5 = x.substring(1)
+                                                if (!(((operator5 == "-" && i_total < num5.toInt()) || ((operator5 == "/" && i_total.rem(num5.toInt()) != 0))))) {
+                                                    var x_total = operators[operator5]!!.invoke(i_total, num5.toInt())
+                                                    if (x_total == target) {
+                                                        result.add(num.toString() + operator1 + num1 + operator2 + num2 + operator3 + num3 + operator4 + num4 + operator5 + num5 + "=" + x_total.toString() + "\n")
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
                                 }
                             }
-
                         }
                     }
                 }
