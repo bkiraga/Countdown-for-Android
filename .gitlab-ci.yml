@@ -6,4 +6,5 @@ variables:
 
 before_script:
 
+stages:
 

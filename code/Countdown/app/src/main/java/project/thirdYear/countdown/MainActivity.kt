@@ -3,6 +3,7 @@ package project.thirdYear.countdown
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         val singlePlayerButton : Button = findViewById(R.id.singlePlayerButton)
+
 
         singlePlayerButton.setOnClickListener {
             val intent = Intent(this, SinglePlayerMenu::class.java)
