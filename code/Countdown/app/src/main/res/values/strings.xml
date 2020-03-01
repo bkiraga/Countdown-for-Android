@@ -23,4 +23,38 @@
     <string name="signIn_passw_field">Password...</string>
     <string name="signIn_email_field">Email...</string>
     <string name="signIn_txt">Join now.</string>
+    <string name="no1">""</string>
+    <string name="no2">""</string>
+    <string name="no3">""</string>
+    <string name="no4">""</string>
+    <string name="no5">""</string>
+    <string name="no6">""</string>
+    <string name="plusButton">+</string>
+    <string name="minusButton">-</string>
+    <string name="multButton">*</string>
+    <string name="divButton">÷</string>
+    <string name="targetField">""</string>
+    <string name="movedNum1">""</string>
+    <string name="movedNum2">""</string>
+    <string name="movedNum3">""</string>
+    <string name="movedNum4">""</string>
+    <string name="movedNum5">""</string>
+    <string name="movedNum6">""</string>
+    <string name="movedNum7">""</string>
+    <string name="movedNum8">""</string>
+    <string name="movedNum9">""</string>
+    <string name="movedNum10">""</string>
+    <string name="movedOperator1">""</string>
+    <string name="movedOperator2">""</string>
+    <string name="movedOperator3">""</string>
+    <string name="movedOperator4">""</string>
+    <string name="movedOperator5">""</string>
+    <string name="subAnswerVar1">""</string>
+    <string name="subAnswerVar2">""</string>
+    <string name="subAnswerVar3">""</string>
+    <string name="subAnswerVar4">""</string>
+    <string name="clearAllTiles">Clear All</string>
+    <string name="clearTile">Clear</string>
+
+
 </resources>

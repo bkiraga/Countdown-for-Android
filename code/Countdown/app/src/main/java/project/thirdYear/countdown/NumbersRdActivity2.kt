@@ -12,9 +12,10 @@ class NumbersRdActivity2 : AppCompatActivity() {
 
         solve.setOnClickListener {
             var solver: NumsSolver = NumsSolver()
-            var nums = arrayListOf(75,8,6,10,25,7)
-            var answer = solver.solve(nums, 785)
-            answerText.text = answer.toString()
+            var nums = intent.getIntegerArrayListExtra("numList")
+            var target = intent.getIntExtra("target",0)
+            var answer = solver.solve(nums, target)
+            answerText.text = answer.toString()//answer.toString()
         }
     }
 }
