@@ -46,50 +46,11 @@ class NumbersRdActivity : AppCompatActivity() {
         val subAnswerVar3 : Button = findViewById(R.id.subAnswerVar3)
         val subAnswerVar4 : Button = findViewById(R.id.subAnswerVar4)
 
-        val clearTile : Button = findViewById(R.id.clearTile)
-        val clearAllTiles : Button = findViewById(R.id.clearAllTiles)
-
-        clearTile.setEnabled(false)
-        clearTile.setVisibility(View.INVISIBLE)
-        clearAllTiles.setEnabled(false)
-        clearAllTiles.setVisibility(View.INVISIBLE)
-
-        var answerTiles = arrayListOf<TextView>(movedNum1,movedOperator1,movedNum2,subAnswerVar1,movedNum3,movedOperator2,movedNum4,subAnswerVar2,movedNum5,movedOperator3,movedNum6,subAnswerVar3,movedNum7,movedOperator4,movedNum8,subAnswerVar4,movedNum9,movedOperator5,movedNum10)
-
-        fun clearAnswerField() {
-            for (tile in answerTiles){
-                tile.setVisibility(View.INVISIBLE)
-                tile.text = ""
-            }
-        }
-
-        clearAnswerField()
-
-        fun clearAnswerTile() {
-            var tiles = answerTiles.reversed()
-            for (i in 0 until tiles.size){
-                if (tiles[i].getText() != ""){
-                    tiles[i].text = ""
-                    tiles[i].setVisibility(View.INVISIBLE)
-                    break
-                }
-            }
-        }
-
-        clearTile.setOnClickListener {
-            clearAnswerTile()
-        }
-
-        clearAllTiles.setOnClickListener {
-            clearAnswerField()
-        }
-
-
-
-
-
         val targetNo : TextView = findViewById(R.id.targetNo)
         val targetField: TextView = findViewById(R.id.targetField)
+
+        var dragOperatorCount: Int = 0
+        var dragCount: Int = 0
 
         var largeNums = arrayListOf<Int>(25,50,75,100)
         var smallNums = arrayListOf<Int>(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10)
@@ -166,6 +127,61 @@ class NumbersRdActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val clearTile : Button = findViewById(R.id.clearTile)
+        val clearAllTiles : Button = findViewById(R.id.clearAllTiles)
+
+        clearTile.setEnabled(false)
+        clearTile.setVisibility(View.INVISIBLE)
+        clearAllTiles.setEnabled(false)
+        clearAllTiles.setVisibility(View.INVISIBLE)
+
+        var answerTiles = arrayListOf<TextView>(movedNum1,movedOperator1,movedNum2,subAnswerVar1,movedNum3,movedOperator2,movedNum4,subAnswerVar2,movedNum5,movedOperator3,movedNum6,subAnswerVar3,movedNum7,movedOperator4,movedNum8,subAnswerVar4,movedNum9,movedOperator5,movedNum10)
+        var usedTiles = arrayListOf<TextView>()
+
+
+        fun clearAllAnswerTiles() {
+            for (tile in answerTiles){
+                tile.setVisibility(View.INVISIBLE)
+                tile.text = ""
+            }
+            for (tile in usedTiles){
+                tile.setVisibility(View.VISIBLE)
+                tile.setEnabled(true)
+            }
+            dragOperatorCount = 0
+            dragCount = 0
+        }
+
+        clearAllAnswerTiles()
+
+        fun clearAnswerTile() {
+            var tiles = answerTiles.reversed()
+            //Toast.makeText(this, usedTiles.toString(), Toast.LENGTH_LONG).show()
+            for (i in 0 until tiles.size){
+                if (tiles[i].getText() != ""){
+                    tiles[i].text = ""
+                    tiles[i].setVisibility(View.INVISIBLE)
+                    break
+                }
+            }
+            if (usedTiles.size != 0) {
+                var tile = usedTiles.get(usedTiles.lastIndex)
+                tile.setVisibility(View.VISIBLE)
+                tile.setEnabled(true)
+                usedTiles.removeAt(usedTiles.lastIndex)
+            }
+
+        }
+
+        clearTile.setOnClickListener {
+            clearAnswerTile()
+        }
+
+        clearAllTiles.setOnClickListener {
+            clearAllAnswerTiles()
+        }
+
+
         no1.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(no1)
             var clipdata = ClipData.newPlainText("", "  ")
@@ -234,8 +250,6 @@ class NumbersRdActivity : AppCompatActivity() {
         }
 
 
-
-        var dragCount: Int = 0
         fun assignTargetNumTile(dragCount:Int): Button {
             var targetNumTile = when (dragCount){
                 0 -> movedNum1
@@ -249,7 +263,6 @@ class NumbersRdActivity : AppCompatActivity() {
         }
 
         val operatorTiles = arrayListOf<TextView>(plusButton,minusButton,multButton,divButton)
-        var dragOperatorCount: Int = 0
         fun assignTargetOperatorTile(dragOperatorCount: Int): Button {
             var targetOperatorTile = when (dragOperatorCount){
                 0 -> movedOperator1
@@ -261,9 +274,9 @@ class NumbersRdActivity : AppCompatActivity() {
             return targetOperatorTile
         }
 
+
         val drag = View.OnDragListener {
             view, event ->
-            val tag = "Drag and drop"
             var dragView = event.getLocalState() as TextView
             event?.let {
                 when (event.action) {
@@ -278,6 +291,7 @@ class NumbersRdActivity : AppCompatActivity() {
                             assignTargetNumTile(dragCount).setVisibility(View.VISIBLE)
                             dragView.setEnabled(false)
                             dragView.setVisibility(View.INVISIBLE)
+                            usedTiles.add(dragView)
                             dragCount += 1
                         }
                         targetField.setBackgroundColor(Color.parseColor("#FFFFFF"))
@@ -298,7 +312,6 @@ class NumbersRdActivity : AppCompatActivity() {
         }
 
         targetField.setOnDragListener(drag)
-
 
     }
 
