@@ -56,6 +56,19 @@
     <string name="clearAllTiles">Clear All</string>
     <string name="clearTile">Clear</string>
     <string name="targetField2">""</string>
+    <string name="letterTargetField">""</string>
+    <string name="lt1">""</string>
+    <string name="lt2">""</string>
+    <string name="lt3">""</string>
+    <string name="lt4">""</string>
+    <string name="lt5">""</string>
+    <string name="lt6">""</string>
+    <string name="lt7">""</string>
+    <string name="lt8">""</string>
+    <string name="lt9">""</string>
+    <string name="vowelButton">vowel</string>
+    <string name="consonantButton">consonant</string>
+
 
 
 </resources>

@@ -1,6 +1,9 @@
 package project.thirdYear.countdown
 
+import android.content.ClipData
 import android.os.Bundle
+import android.view.DragEvent
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -81,6 +84,89 @@ class LettersRdActivity : AppCompatActivity() {
                 ltF.text = consonant.toString()
                 counter += 1
             }
+        }
+
+        lt1.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt1)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt1.startDrag(clipdata, dragShadow, lt1, 0)
+            true
+        }
+        lt2.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt2)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt2.startDrag(clipdata, dragShadow, lt2, 0)
+            true
+        }
+        lt3.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt3)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt3.startDrag(clipdata, dragShadow, lt3, 0)
+            true
+        }
+        lt4.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt4)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt4.startDrag(clipdata, dragShadow, lt4, 0)
+            true
+        }
+        lt5.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt5)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt5.startDrag(clipdata, dragShadow, lt5, 0)
+            true
+        }
+        lt6.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt6)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt6.startDrag(clipdata, dragShadow, lt6, 0)
+            true
+        }
+        lt7.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt7)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt7.startDrag(clipdata, dragShadow, lt7, 0)
+            true
+        }
+        lt8.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt8)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt8.startDrag(clipdata, dragShadow, lt8, 0)
+            true
+        }
+        lt9.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt9)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt9.startDrag(clipdata, dragShadow, lt9, 0)
+            true
+        }
+
+        val drag = View.OnDragListener{
+            view, event ->
+            event?.let{
+                when (event.action){
+                    DragEvent.ACTION_DRAG_STARTED -> {
+
+                    }
+                    DragEvent.ACTION_DROP -> {
+
+                    }
+                    DragEvent.ACTION_DRAG_ENTERED -> {
+
+                    }
+                    DragEvent.ACTION_DRAG_EXITED -> {
+
+                    }
+                    DragEvent.ACTION_DRAG_ENDED -> {
+
+                    }
+                    else -> {}
+
+                }
+
+            }
+            true
+
         }
     }
 }
