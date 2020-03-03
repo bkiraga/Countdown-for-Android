@@ -55,6 +55,7 @@
     <string name="subAnswerVar4">""</string>
     <string name="clearAllTiles">Clear All</string>
     <string name="clearTile">Clear</string>
+    <string name="targetField2">""</string>
 
 
 </resources>

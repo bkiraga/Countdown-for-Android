@@ -8,6 +8,7 @@ import android.view.DragEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_numbers_rd.*
 import java.util.*
@@ -18,6 +19,7 @@ class NumbersRdActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_numbers_rd)
 
+        //Get id of UI elements
         val largeNumberButton : Button = findViewById(R.id.largeNumberButton)
         val smallNumberButton : Button = findViewById(R.id.smallNumberButton)
         val solveButton : Button = findViewById(R.id.solveButton)
@@ -49,6 +51,7 @@ class NumbersRdActivity : AppCompatActivity() {
         val targetNo : TextView = findViewById(R.id.targetNo)
         val targetField: TextView = findViewById(R.id.targetField)
 
+        // required variables
         var dragOperatorCount: Int = 0
         var dragCount: Int = 0
 
@@ -82,7 +85,7 @@ class NumbersRdActivity : AppCompatActivity() {
                 counter += 1
             }
             if (counter == 6){
-                target = Random().nextInt(899) + 100
+                target = Random().nextInt(898) + 101
                 targetNo.text = target.toString()
                 smallNumberButton.setEnabled(false)
                 smallNumberButton.setVisibility(View.INVISIBLE)
@@ -107,10 +110,10 @@ class NumbersRdActivity : AppCompatActivity() {
                 counter += 1
             }
             if (counter == 6){
-                target = Random().nextInt(899) + 100
+                target = Random().nextInt(898) + 101
                 targetNo.text = target.toString()
-                largeNumberButton.setEnabled(false)
                 largeNumberButton.setVisibility(View.INVISIBLE)
+                largeNumberButton.setEnabled(false)
                 smallNumberButton.setEnabled(false)
                 smallNumberButton.setVisibility(View.INVISIBLE)
                 solveButton.setEnabled(true)
@@ -119,12 +122,6 @@ class NumbersRdActivity : AppCompatActivity() {
                 clearAllTiles.setEnabled(true)
                 clearAllTiles.setVisibility(View.VISIBLE)
             }
-        }
-        solveButton.setOnClickListener {
-            val intent = Intent(this, NumbersRdActivity2 ::class.java)
-            intent.putIntegerArrayListExtra("numList",numList)
-            intent.putExtra("target", target)
-            startActivity(intent)
         }
 
         val clearTile : Button = findViewById(R.id.clearTile)
@@ -137,6 +134,22 @@ class NumbersRdActivity : AppCompatActivity() {
 
         var answerTiles = arrayListOf<TextView>(movedNum1,movedOperator1,movedNum2,subAnswerVar1,movedNum3,movedOperator2,movedNum4,subAnswerVar2,movedNum5,movedOperator3,movedNum6,subAnswerVar3,movedNum7,movedOperator4,movedNum8,subAnswerVar4,movedNum9,movedOperator5,movedNum10)
         var usedTiles = arrayListOf<TextView>()
+        var subAnswerTiles = arrayListOf<TextView>(subAnswerVar1,subAnswerVar2,subAnswerVar3,subAnswerVar4)
+
+
+        solveButton.setOnClickListener {
+            val intent = Intent(this, NumbersRdActivity2 ::class.java)
+            intent.putIntegerArrayListExtra("numList",numList)
+            intent.putExtra("target", target)
+            var playerAnswer = arrayListOf<String>()
+            for (tile in answerTiles){
+                if (tile.getText() != ""){
+                    playerAnswer.add(tile.getText().toString())
+                }
+            }
+            intent.putStringArrayListExtra("chosenNums",playerAnswer)
+            startActivity(intent)
+        }
 
 
         fun clearAllAnswerTiles() {
@@ -145,8 +158,10 @@ class NumbersRdActivity : AppCompatActivity() {
                 tile.text = ""
             }
             for (tile in usedTiles){
-                tile.setVisibility(View.VISIBLE)
-                tile.setEnabled(true)
+                if (!(tile in subAnswerTiles)) {
+                    tile.setVisibility(View.VISIBLE)
+                    tile.setEnabled(true)
+                }
             }
             dragOperatorCount = 0
             dragCount = 0
@@ -156,7 +171,6 @@ class NumbersRdActivity : AppCompatActivity() {
 
         fun clearAnswerTile() {
             var tiles = answerTiles.reversed()
-            //Toast.makeText(this, usedTiles.toString(), Toast.LENGTH_LONG).show()
             for (i in 0 until tiles.size){
                 if (tiles[i].getText() != ""){
                     tiles[i].text = ""
@@ -248,6 +262,32 @@ class NumbersRdActivity : AppCompatActivity() {
             divButton.startDrag(clipdata, dragShadow, divButton, 0)
             true
         }
+        subAnswerVar1.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(subAnswerVar1)
+            var clipdata = ClipData.newPlainText("", "  ")
+            subAnswerVar1.startDrag(clipdata, dragShadow, subAnswerVar1, 0)
+            true
+        }
+        subAnswerVar2.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(subAnswerVar2)
+            var clipdata = ClipData.newPlainText("", "  ")
+            subAnswerVar2.startDrag(clipdata, dragShadow, subAnswerVar2, 0)
+            true
+        }
+        subAnswerVar3.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(subAnswerVar3)
+            var clipdata = ClipData.newPlainText("", "  ")
+            subAnswerVar3.startDrag(clipdata, dragShadow, subAnswerVar3, 0)
+            true
+        }
+        subAnswerVar4.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(subAnswerVar4)
+            var clipdata = ClipData.newPlainText("", "  ")
+            subAnswerVar4.startDrag(clipdata, dragShadow, subAnswerVar4, 0)
+            true
+        }
+
+
 
 
         fun assignTargetNumTile(dragCount:Int): Button {
@@ -257,7 +297,11 @@ class NumbersRdActivity : AppCompatActivity() {
                 2 -> movedNum3
                 3 -> movedNum4
                 4 -> movedNum5
-                else -> movedNum6
+                5 -> movedNum6
+                6 -> movedNum7
+                7 -> movedNum8
+                8 -> movedNum9
+                else -> movedNum10
             }
             return targetNumTile
         }
@@ -274,26 +318,115 @@ class NumbersRdActivity : AppCompatActivity() {
             return targetOperatorTile
         }
 
+        fun calAnswerTile(numTile1:TextView,opTile:TextView,numTile2:TextView): Int {
+            var num1 = numTile1.getText().toString().toInt()
+            var num2 = numTile2.getText().toString().toInt()
+            var answer: Int = 0
+
+            if (opTile.getText() == "+"){
+                answer = num1 + num2
+            }
+            if (opTile.getText() == "*"){
+                answer = num1 * num2
+            }
+            if (opTile.getText() == "-"){
+                if (num1 > num2){
+                    answer = num1 - num2
+                }
+                else {
+                    answer = 0
+                }
+            }
+            if (opTile.getText() == "/"){
+                if (num1 % num2 == 0){
+                    answer = num1 / num2
+                }
+                else {
+                    answer = 0
+                }
+            }
+            return answer
+        }
+
+        // Target field for the drag object
 
         val drag = View.OnDragListener {
             view, event ->
             var dragView = event.getLocalState() as TextView
             event?.let {
                 when (event.action) {
+                    DragEvent.ACTION_DRAG_STARTED -> {
+                        view.setBackgroundColor(Color.parseColor("#FED88F"))
+                    }
+
                     DragEvent.ACTION_DROP -> {
                         if (dragView in operatorTiles){
                             assignTargetOperatorTile(dragOperatorCount).text = dragView.getText()
                             assignTargetOperatorTile(dragOperatorCount).setVisibility(View.VISIBLE)
                             dragOperatorCount += 1
                         }
+                       // if ()
                         else {
                             assignTargetNumTile(dragCount).text = dragView.getText()
                             assignTargetNumTile(dragCount).setVisibility(View.VISIBLE)
+                            if (dragView in subAnswerTiles){
+                             Toast.makeText(this,dragView.getText().toString(),Toast.LENGTH_LONG).show()
+
+                            }
                             dragView.setEnabled(false)
                             dragView.setVisibility(View.INVISIBLE)
                             usedTiles.add(dragView)
                             dragCount += 1
                         }
+                        if (movedOperator1.getText() != "" && movedNum2.getText() != "" && subAnswerVar1.getText() == "") {
+                            subAnswerVar1.setVisibility(View.VISIBLE)
+                            subAnswerVar1.setEnabled(true)
+                            var answer = calAnswerTile(movedNum1,movedOperator1,movedNum2)
+                            if (answer != 0) {
+                                subAnswerVar1.text = answer.toString()
+                            }
+                            else {
+                                subAnswerVar1.text = "X"
+                                subAnswerVar1.setEnabled(false)
+                            }
+                        }
+                        if (movedOperator2.getText() != "" && movedNum4.getText() != "" && subAnswerVar2.getText() == "") {
+                            subAnswerVar2.setVisibility(View.VISIBLE)
+                            subAnswerVar2.setEnabled(true)
+                            var answer = calAnswerTile(movedNum3,movedOperator2,movedNum4)
+                            if (answer != 0){
+                                subAnswerVar2.text = answer.toString()
+                            }
+                            else {
+                                subAnswerVar2.text = "X"
+                                subAnswerVar2.setEnabled(false)
+                            }
+                        }
+                        if (movedOperator3.getText() != "" && movedNum6.getText() != "" && subAnswerVar3.getText() == "") {
+                            subAnswerVar3.setVisibility(View.VISIBLE)
+                            subAnswerVar3.setEnabled(true)
+                            var answer = calAnswerTile(movedNum5,movedOperator3,movedNum6)
+                            if (answer != 0){
+                                subAnswerVar3.text = answer.toString()
+                            }
+                            else {
+                                subAnswerVar3.text = "X"
+                                subAnswerVar3.setEnabled(false)
+                            }
+                        }
+                        if (movedOperator4.getText() != "" && movedNum8.getText() != "" && subAnswerVar4.getText() == "") {
+                            subAnswerVar4.setVisibility(View.VISIBLE)
+                            subAnswerVar4.setEnabled(true)
+                            var answer = calAnswerTile(movedNum7,movedOperator4,movedNum8)
+                            if (answer != 0){
+                                subAnswerVar4.text = answer.toString()
+                            }
+                            else {
+                                subAnswerVar4.text = "X"
+                                subAnswerVar4.setEnabled(false)
+                            }
+                        }
+
                         targetField.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
                     }
@@ -303,7 +436,10 @@ class NumbersRdActivity : AppCompatActivity() {
                         view.setBackgroundColor(Color.parseColor("#FEF65B"))
                     }
                     DragEvent.ACTION_DRAG_EXITED -> {
-                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        view.setBackgroundColor(Color.parseColor("#FED88F"))
+                    }
+                    DragEvent.ACTION_DRAG_ENDED -> {
+                        targetField.setBackgroundColor(Color.parseColor("#FFFFFF"))
                     }
                     else -> { }
                 }
@@ -314,5 +450,6 @@ class NumbersRdActivity : AppCompatActivity() {
         targetField.setOnDragListener(drag)
 
     }
+
 
     }
