@@ -66,9 +66,20 @@
     <string name="lt7">""</string>
     <string name="lt8">""</string>
     <string name="lt9">""</string>
+    <string name="movedLt1">""</string>
+    <string name="movedLt2">""</string>
+    <string name="movedLt3">""</string>
+    <string name="movedLt4">""</string>
+    <string name="movedLt5">""</string>
+    <string name="movedLt6">""</string>
+    <string name="movedLt7">""</string>
+    <string name="movedLt8">""</string>
+    <string name="movedLt9">""</string>
     <string name="vowelButton">vowel</string>
     <string name="consonantButton">consonant</string>
-
+    <string name="solveLts">solve</string>
+    <string name="clearAllLtButton">clear all</string>
+    <string name="clearLtTile">clear</string>
 
 
 </resources>

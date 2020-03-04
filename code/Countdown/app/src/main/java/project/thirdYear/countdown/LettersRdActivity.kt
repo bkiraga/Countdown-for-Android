@@ -1,12 +1,14 @@
 package project.thirdYear.countdown
 
 import android.content.ClipData
+import android.graphics.Color
 import android.os.Bundle
 import android.view.DragEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_letters_rd.*
 import java.util.*
 
 class LettersRdActivity : AppCompatActivity() {
@@ -26,6 +28,7 @@ class LettersRdActivity : AppCompatActivity() {
         val lt7: TextView = findViewById(R.id.lt7)
         val lt8: TextView = findViewById(R.id.lt8)
         val lt9: TextView = findViewById(R.id.lt9)
+        val clearLtTile : TextView = findViewById(R.id.clearLtTile)
 
         var vowels = arrayListOf<String>("A", "E", "I", "O", "U")
         var consonants = arrayListOf<String>(
@@ -141,18 +144,79 @@ class LettersRdActivity : AppCompatActivity() {
             true
         }
 
+        var dragCount = 0
+        var usedTiles = arrayListOf<TextView>()
+        var movedLtTiles = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
+
+        fun clearAllLts(){
+            for (tile in usedTiles) {
+                tile.setVisibility(View.VISIBLE)
+                tile.setEnabled(true)
+            }
+            for (movedTile in movedLtTiles) {
+                movedTile.setVisibility(View.INVISIBLE)
+                movedTile.text = ""
+            }
+            dragCount = 0
+        }
+
+
+        clearAllLtButton.setOnClickListener {
+            clearAllLts()
+        }
+
+         clearLtTile.setOnClickListener {
+            for (movedTile in movedLtTiles.reversed()){
+                if (movedTile.getText() != ""){
+                    movedTile.text = ""
+                    movedTile.setVisibility(View.INVISIBLE)
+                    var tile = usedTiles.get(usedTiles.lastIndex)
+                    usedTiles.removeAt(usedTiles.lastIndex)
+                    dragCount -= 1
+                    tile.setVisibility(View.VISIBLE)
+                    tile.setEnabled(true)
+                    break
+                }
+            }
+        }
+
+
+
+        fun assignTargetLtTile(dragCount:Int): TextView {
+            var targetLtTile = when (dragCount){
+                0 -> movedLt1
+                1 -> movedLt2
+                2 -> movedLt3
+                3 -> movedLt4
+                4 -> movedLt5
+                5 -> movedLt6
+                6 -> movedLt7
+                7 -> movedLt8
+                else -> movedLt9
+            }
+            return targetLtTile
+        }
+
         val drag = View.OnDragListener{
             view, event ->
+            var dragView = event.getLocalState() as TextView
             event?.let{
                 when (event.action){
                     DragEvent.ACTION_DRAG_STARTED -> {
-
                     }
                     DragEvent.ACTION_DROP -> {
+                        var targetTile = assignTargetLtTile(dragCount)
+                        targetTile.text = dragView.getText()
+                        targetTile.setVisibility(View.VISIBLE)
+                        dragView.setVisibility(View.INVISIBLE)
+                        dragView.setEnabled(false)
+                        usedTiles.add(dragView)
+                        dragCount += 1
 
+                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
                     }
                     DragEvent.ACTION_DRAG_ENTERED -> {
-
+                        view.setBackgroundColor(Color.parseColor("#FED88F"))
                     }
                     DragEvent.ACTION_DRAG_EXITED -> {
 
@@ -168,5 +232,7 @@ class LettersRdActivity : AppCompatActivity() {
             true
 
         }
+        clearAllLts()
+        letterTargetField.setOnDragListener(drag)
     }
 }

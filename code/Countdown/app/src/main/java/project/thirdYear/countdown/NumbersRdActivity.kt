@@ -427,7 +427,7 @@ class NumbersRdActivity : AppCompatActivity() {
                             }
                         }
 
-                        targetField.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
                     }
 
@@ -439,7 +439,7 @@ class NumbersRdActivity : AppCompatActivity() {
                         view.setBackgroundColor(Color.parseColor("#FED88F"))
                     }
                     DragEvent.ACTION_DRAG_ENDED -> {
-                        targetField.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
                     }
                     else -> { }
                 }
