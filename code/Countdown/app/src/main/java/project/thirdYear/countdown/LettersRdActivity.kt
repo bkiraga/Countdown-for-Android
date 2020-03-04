@@ -22,6 +22,8 @@ import project.thirdYear.countdown.DatabaseManager
 import java.io.File
 import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.system.measureTimeMillis
 
 
@@ -33,14 +35,24 @@ class LettersRdActivity : AppCompatActivity() {
         setContentView(R.layout.activity_letters_rd)
         setUp()
         //dbManager("PARLIAMENT")
-
+        val mutex = Mutex()
         CoroutineScope(Dispatchers.Main).launch {
+
+
             var duration = measureTimeMillis {
-                var trie = createPopulatedTrie(readTxtFile())
+                mutex.withLock {
+                    var trie = async { createPopulatedTrie(readTxtFile()) }
+                    var size = trie.await().getTrieSize()
+                    Toast.makeText(this@LettersRdActivity, "Trie has $size many items", Toast.LENGTH_LONG).show()
+                    var exists = trie.await().search_word("AARDVARK".trim())
+                    var exits = trie.await().search_word("AARONITE".trim())
+                    Toast.makeText(this@LettersRdActivity, "AARDVARK exists: $exists", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LettersRdActivity, "AARDVARK exists: $exits", Toast.LENGTH_LONG).show()
+                }
             }
             Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
             Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
-            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
+
         }
 
 
@@ -270,9 +282,6 @@ class LettersRdActivity : AppCompatActivity() {
 
         Toast.makeText(this, "results size: ${results.size}", Toast.LENGTH_LONG).show()
 
-
-
-
 /*
         val writableDb = dbRef.writableDatabase
         populateDB(writableDb)
@@ -324,18 +333,19 @@ class LettersRdActivity : AppCompatActivity() {
 
 
     suspend fun createPopulatedTrie(words:List<String>):LettersSolver.Trie{
-
-        val t = LettersSolver.Trie()
-        withContext(Dispatchers.Default){
-                for (word in words){
-                    t.add_word(word)
+        val mutex = Mutex()
+        mutex.withLock {
+            val t = LettersSolver.Trie()
+            withContext(Dispatchers.Default){
+                for (word in words.subList(1,100)){
+                    Log.d(TAG, "ADDING $word to Trie. SIZE is: ${word.trim().length}")
+                    t.add_word(word.trim())
+                    Log.d(TAG, "man: AARDVARK :${t.search_word("AARDVARK".trim())}")
+                    Log.d(TAG, "man: AARONITE :${t.search_word("AARONITE".trim())}")
                 }
-                for (word in words){
-                    Log.d(TAG, "word: $word is present: ${t.search_word(word)}")
-                }
-
+            }
+            return t
         }
-        return t
     }
 
 
