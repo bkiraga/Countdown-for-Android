@@ -10,14 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30052ec6-5580-41ce-b156-24f1cd2904b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SinglePlayerMenu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SinglePlayerMenu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_single_player_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_single_player_menu.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3142">
-              <caret line="358" column="24" selection-start-line="358" selection-start-column="24" selection-end-line="358" selection-end-column="76" />
+            <state relative-caret-position="-11">
+              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
               <folding>
                 <element signature="e#37#423#0" expanded="true" />
               </folding>
@@ -58,14 +56,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
-              <folding>
-                <element signature="e#37#365#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-4">
+              <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -73,38 +77,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SinglePlayerMenu.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="360">
+              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="78" column="53" lean-forward="true" selection-start-line="78" selection-start-column="53" selection-end-line="78" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="6315">
-              <caret line="421" column="35" selection-start-line="421" selection-start-column="35" selection-end-line="421" selection-end-column="35" />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_single_player_menu.xml">
+          <provider editor-type-id="text-editor" />
           <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
@@ -113,6 +94,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>clearTile</find>
+      <find>numList</find>
+      <find>Toas</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -121,21 +104,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/ConundrumRdActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_conundrum_rd.xml" />
         <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_single_player_menu.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SinglePlayerMenu.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="189" />
-    <option name="y" value="111" />
+    <option name="x" value="521" />
+    <option name="y" value="64" />
     <option name="width" value="1199" />
     <option name="height" value="997" />
   </component>
@@ -145,18 +130,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Countdown" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -186,10 +159,28 @@
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Countdown" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -297,7 +288,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.29479167" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.29479167" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -312,7 +303,7 @@
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5005208" side_tool="true" weight="0.32944915" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.08580509" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.08580509" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.3559322" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -396,23 +387,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SignUp.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1028">
           <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/project/thirdYear/countdown/ExampleUnitTest.kt">
       <provider selected="true" editor-type-id="text-editor">
@@ -428,71 +408,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/ConundrumRdActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="217" column="49" lean-forward="true" selection-start-line="217" selection-start-column="49" selection-end-line="217" selection-end-column="49" />
-          <folding>
-            <element signature="e#37#415#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_conundrum_rd.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/ConundrumRdActivity.kt" />
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_conundrum_rd.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="5658">
-          <caret line="419" column="4" selection-start-line="419" selection-start-column="4" selection-end-line="419" selection-end-column="4" />
-          <folding>
-            <element signature="e#534#555#0" expanded="true" />
-            <element signature="e#1038#1063#0" expanded="true" />
-            <element signature="e#3890#3903#0" expanded="true" />
-            <element signature="e#4281#4294#0" expanded="true" />
-            <element signature="e#4682#4695#0" expanded="true" />
-            <element signature="e#5083#5096#0" expanded="true" />
-            <element signature="e#5484#5497#0" expanded="true" />
-            <element signature="e#6944#6957#0" expanded="true" />
-            <element signature="e#7345#7358#0" expanded="true" />
-            <element signature="e#7746#7759#0" expanded="true" />
-            <element signature="e#8415#8428#0" expanded="true" />
-            <element signature="e#9631#9649#0" expanded="true" />
-            <element signature="e#10042#10060#0" expanded="true" />
-            <element signature="e#10453#10471#0" expanded="true" />
-            <element signature="e#10864#10882#0" expanded="true" />
-            <element signature="e#11275#11293#0" expanded="true" />
-            <element signature="e#11686#11704#0" expanded="true" />
-            <element signature="e#12097#12115#0" expanded="true" />
-            <element signature="e#12508#12526#0" expanded="true" />
-            <element signature="e#12919#12937#0" expanded="true" />
-            <element signature="e#16021#16048#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3142">
-          <caret line="358" column="24" selection-start-line="358" selection-start-column="24" selection-end-line="358" selection-end-column="76" />
+        <state relative-caret-position="372">
+          <caret line="171" column="20" selection-start-line="171" selection-start-column="20" selection-end-line="171" selection-end-column="20" />
           <folding>
-            <element signature="e#37#423#0" expanded="true" />
+            <element signature="e#37#365#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/LettersRdActivity.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
-          <folding>
-            <element signature="e#37#365#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="155">
+          <caret line="34" column="29" lean-forward="true" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -504,27 +443,44 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="78" column="53" lean-forward="true" selection-start-line="78" selection-start-column="53" selection-end-line="78" selection-end-column="53" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_numbers_rd2.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_single_player_menu.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/SinglePlayerMenu.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="360">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_letters_rd.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="40" lean-forward="true" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+          <folding>
+            <element signature="e#37#423#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/thirdYear/countdown/NumbersRdActivity2.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

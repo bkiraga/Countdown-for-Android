@@ -32,12 +32,12 @@
         android:layout_height="49dp"
         android:layout_marginBottom="72dp"
         android:text="numbers_round"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/conundrumRdButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/conundrumRdButton"
         android:layout_width="289dp"
         android:layout_height="49dp"
         android:layout_marginBottom="84dp"

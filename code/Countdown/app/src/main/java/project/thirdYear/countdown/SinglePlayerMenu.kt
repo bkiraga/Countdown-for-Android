@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_single_player_menu.*
 
 class SinglePlayerMenu : AppCompatActivity() {
 
@@ -20,6 +21,12 @@ class SinglePlayerMenu : AppCompatActivity() {
         }
         lettersRdButton.setOnClickListener {
             val intent = Intent(this, LettersRdActivity::class.java)
+            intent.putExtra("flag","letters")
+            startActivity(intent)
+        }
+        conundrumRdButton.setOnClickListener {
+            val intent = Intent(this,LettersRdActivity::class.java)
+            intent.putExtra("flag","conundrum")
             startActivity(intent)
         }
     }

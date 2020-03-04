@@ -10,7 +10,24 @@ class NumbersRdActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_numbers_rd2)
 
-        //playerAnswer.text = intent.getStringArrayListExtra("numsChosen").toString()
+        var chosenOps = intent.getStringArrayListExtra("chosenNums")
+        var playerSolution = intent.getStringExtra("playerSolution")
+        var lines = arrayListOf<String>()
+        var line: String
+        var i = 0
+        while (i < chosenOps.size){
+            line = chosenOps.get(i) + chosenOps.get(i+1) + chosenOps.get(i+2) + "=" + chosenOps.get(i+3)
+            lines.add(line)
+            i += 4
+        }
+
+        var formatAnswer = ""
+        for (l in lines){
+            formatAnswer += l + "\n"
+        }
+
+        playerAnswer.text = formatAnswer
+
 
 
         fun subResult(equation: String): String {

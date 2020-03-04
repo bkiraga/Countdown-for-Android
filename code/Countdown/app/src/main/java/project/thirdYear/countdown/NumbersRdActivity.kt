@@ -42,6 +42,12 @@ class NumbersRdActivity : AppCompatActivity() {
         val movedNum8 : Button = findViewById(R.id.movedNum8)
         val movedNum9 : Button = findViewById(R.id.movedNum9)
         val movedNum10 : Button = findViewById(R.id.movedNum10)
+        val movedOperator1 : Button = findViewById(R.id.movedOperator1)
+        val movedOperator2 : Button = findViewById(R.id.movedOperator2)
+        val movedOperator3 : Button = findViewById(R.id.movedOperator3)
+        val movedOperator4 : Button = findViewById(R.id.movedOperator4)
+        val movedOperator5 : Button = findViewById(R.id.movedOperator5)
+
 
         val subAnswerVar1 : Button = findViewById(R.id.subAnswerVar1)
         val subAnswerVar2 : Button = findViewById(R.id.subAnswerVar2)
@@ -135,11 +141,21 @@ class NumbersRdActivity : AppCompatActivity() {
         var answerTiles = arrayListOf<TextView>(movedNum1,movedOperator1,movedNum2,subAnswerVar1,movedNum3,movedOperator2,movedNum4,subAnswerVar2,movedNum5,movedOperator3,movedNum6,subAnswerVar3,movedNum7,movedOperator4,movedNum8,subAnswerVar4,movedNum9,movedOperator5,movedNum10)
         var usedTiles = arrayListOf<TextView>()
         var subAnswerTiles = arrayListOf<TextView>(subAnswerVar1,subAnswerVar2,subAnswerVar3,subAnswerVar4)
-
+        var operatorAnsTiles = arrayListOf<TextView>(movedOperator1,movedOperator2,movedOperator3,movedOperator4,movedOperator5)
+        var movedNumTiles = arrayListOf<TextView>(movedNum1,movedNum2,movedNum3,movedNum4,movedNum5,movedNum6,movedNum7,movedNum8,movedNum9,movedNum10)
+        var numberTiles = arrayListOf<TextView>(no1,no2,no3,no4,no5,no6)
 
         solveButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity2 ::class.java)
             intent.putIntegerArrayListExtra("numList",numList)
+            var playerSolution: String = ""
+            for (answer in subAnswerTiles.reversed()){
+                if (answer.getText() != ""){
+                    playerSolution = answer.getText().toString()
+                    break
+                }
+            }
+            intent.putExtra("playerSolution", playerSolution)
             intent.putExtra("target", target)
             var playerAnswer = arrayListOf<String>()
             for (tile in answerTiles){
@@ -147,6 +163,7 @@ class NumbersRdActivity : AppCompatActivity() {
                     playerAnswer.add(tile.getText().toString())
                 }
             }
+            Toast.makeText(this, playerAnswer.toString(), Toast.LENGTH_SHORT).show()
             intent.putStringArrayListExtra("chosenNums",playerAnswer)
             startActivity(intent)
         }
@@ -169,26 +186,29 @@ class NumbersRdActivity : AppCompatActivity() {
 
         clearAllAnswerTiles()
 
-        fun clearAnswerTile() {
+        clearTile.setOnClickListener {
+
             var tiles = answerTiles.reversed()
             for (i in 0 until tiles.size){
                 if (tiles[i].getText() != ""){
                     tiles[i].text = ""
                     tiles[i].setVisibility(View.INVISIBLE)
+                    if (usedTiles.size != 0) {
+                        var tile = usedTiles.get(usedTiles.lastIndex)
+                        if (tiles[i] in movedNumTiles) {
+                            tile.setVisibility(View.VISIBLE)
+                            tile.setEnabled(true)
+                            usedTiles.removeAt(usedTiles.lastIndex)
+                            dragCount -= 1
+                        }
+                        else if (tiles[i] in operatorAnsTiles){
+                            dragOperatorCount -= 1
+                        }
+                    }
                     break
                 }
             }
-            if (usedTiles.size != 0) {
-                var tile = usedTiles.get(usedTiles.lastIndex)
-                tile.setVisibility(View.VISIBLE)
-                tile.setEnabled(true)
-                usedTiles.removeAt(usedTiles.lastIndex)
-            }
 
-        }
-
-        clearTile.setOnClickListener {
-            clearAnswerTile()
         }
 
         clearAllTiles.setOnClickListener {
@@ -337,7 +357,7 @@ class NumbersRdActivity : AppCompatActivity() {
                     answer = 0
                 }
             }
-            if (opTile.getText() == "/"){
+            if (opTile.getText() == "÷"){
                 if (num1 % num2 == 0){
                     answer = num1 / num2
                 }
@@ -365,18 +385,13 @@ class NumbersRdActivity : AppCompatActivity() {
                             assignTargetOperatorTile(dragOperatorCount).setVisibility(View.VISIBLE)
                             dragOperatorCount += 1
                         }
-                       // if ()
                         else {
                             assignTargetNumTile(dragCount).text = dragView.getText()
                             assignTargetNumTile(dragCount).setVisibility(View.VISIBLE)
-                            if (dragView in subAnswerTiles){
-                             Toast.makeText(this,dragView.getText().toString(),Toast.LENGTH_LONG).show()
-
-                            }
-                            dragView.setEnabled(false)
-                            dragView.setVisibility(View.INVISIBLE)
                             usedTiles.add(dragView)
                             dragCount += 1
+                            dragView.setEnabled(false)
+                            dragView.setVisibility(View.INVISIBLE)
                         }
                         if (movedOperator1.getText() != "" && movedNum2.getText() != "" && subAnswerVar1.getText() == "") {
                             subAnswerVar1.setVisibility(View.VISIBLE)
@@ -386,8 +401,15 @@ class NumbersRdActivity : AppCompatActivity() {
                                 subAnswerVar1.text = answer.toString()
                             }
                             else {
-                                subAnswerVar1.text = "X"
+                                movedNum2.text = ""
+                                movedNum2.setVisibility(View.INVISIBLE)
+                                subAnswerVar1.setVisibility(View.INVISIBLE)
                                 subAnswerVar1.setEnabled(false)
+                                dragView.setVisibility(View.VISIBLE)
+                                dragView.setEnabled(true)
+                                dragCount -= 1
+                                usedTiles.removeAt(usedTiles.lastIndex)
+                                Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
                         if (movedOperator2.getText() != "" && movedNum4.getText() != "" && subAnswerVar2.getText() == "") {
@@ -398,8 +420,15 @@ class NumbersRdActivity : AppCompatActivity() {
                                 subAnswerVar2.text = answer.toString()
                             }
                             else {
-                                subAnswerVar2.text = "X"
+                                movedNum4.text = ""
+                                movedNum4.setVisibility(View.INVISIBLE)
+                                subAnswerVar2.setVisibility(View.INVISIBLE)
                                 subAnswerVar2.setEnabled(false)
+                                dragView.setVisibility(View.VISIBLE)
+                                dragView.setEnabled(true)
+                                dragCount -= 1
+                                usedTiles.removeAt(usedTiles.lastIndex)
+                                Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
                         if (movedOperator3.getText() != "" && movedNum6.getText() != "" && subAnswerVar3.getText() == "") {
@@ -410,8 +439,15 @@ class NumbersRdActivity : AppCompatActivity() {
                                 subAnswerVar3.text = answer.toString()
                             }
                             else {
-                                subAnswerVar3.text = "X"
+                                movedNum6.text = ""
+                                movedNum6.setVisibility(View.INVISIBLE)
+                                subAnswerVar3.setVisibility(View.INVISIBLE)
                                 subAnswerVar3.setEnabled(false)
+                                dragView.setVisibility(View.VISIBLE)
+                                dragView.setEnabled(true)
+                                dragCount -= 1
+                                usedTiles.removeAt(usedTiles.lastIndex)
+                                Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
                         if (movedOperator4.getText() != "" && movedNum8.getText() != "" && subAnswerVar4.getText() == "") {
@@ -422,8 +458,15 @@ class NumbersRdActivity : AppCompatActivity() {
                                 subAnswerVar4.text = answer.toString()
                             }
                             else {
-                                subAnswerVar4.text = "X"
+                                movedNum8.text = ""
+                                movedNum8.setVisibility(View.INVISIBLE)
+                                subAnswerVar4.setVisibility(View.INVISIBLE)
                                 subAnswerVar4.setEnabled(false)
+                                dragView.setVisibility(View.VISIBLE)
+                                dragView.setEnabled(true)
+                                dragCount -= 1
+                                usedTiles.removeAt(usedTiles.lastIndex)
+                                Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
 
