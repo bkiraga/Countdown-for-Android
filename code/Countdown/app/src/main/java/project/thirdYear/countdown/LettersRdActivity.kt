@@ -1,17 +1,65 @@
 package project.thirdYear.countdown
 
+import android.content.ContentValues
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_letters_rd.*
 import java.util.*
+import project.thirdYear.countdown.DatabaseManager
+import java.io.File
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
+
 
 class LettersRdActivity : AppCompatActivity() {
 
+    //@RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_letters_rd)
+        setUp()
+        //dbManager("PARLIAMENT")
 
+        CoroutineScope(Dispatchers.Main).launch {
+            var duration = measureTimeMillis {
+                var trie = createPopulatedTrie(readTxtFile())
+            }
+            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
+        }
+
+
+        //populateDB()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        //test()
+    }
+
+    public suspend fun readTxtFile():List<String>{
+        var text:List<String> = withContext(Dispatchers.IO){
+            var res = applicationContext.assets.open("words.txt").bufferedReader().use {
+                it.readText()
+            }.split("\n")
+            // returns by context coroutine
+            return@withContext res
+        }
+        return text
+    }
+
+    fun setUp(){
         val vowelButton: Button = findViewById(R.id.vowelButton)
         val consonantButton: Button = findViewById(R.id.consonantButton)
         val lt1: TextView = findViewById(R.id.lt1)
@@ -82,5 +130,86 @@ class LettersRdActivity : AppCompatActivity() {
                 counter += 1
             }
         }
+    }
+
+    public fun dbManager(word:String):MutableList<String> {
+
+        val dbRef = DatabaseManager(this)
+
+        var results = dbRef.readData()
+
+        Toast.makeText(this, "results size: ${results.size}", Toast.LENGTH_LONG).show()
+
+
+
+
+/*
+        val writableDb = dbRef.writableDatabase
+        populateDB(writableDb)
+
+
+        //var result = dbRef.insertData(word)
+        //if (result == -1.toLong()){
+        //    Toast.makeText(this, "Failed: $result", Toast.LENGTH_SHORT).show()
+        //}
+        //else{
+        //    Toast.makeText(this, "Success: $result, added: $word", Toast.LENGTH_SHORT).show()
+        //}
+
+ */
+        return results
+
+    }
+
+    fun populateDB(db:SQLiteDatabase):String{
+
+        Toast.makeText(this, "populating", Toast.LENGTH_SHORT).show()
+        var text = applicationContext.assets.open("words.txt").bufferedReader().use {
+            it.readText()
+        }.split("\n")
+
+        Toast.makeText(this, "WordList length: ${text.size}", Toast.LENGTH_LONG).show()
+        return ""
+/*
+        val table = DatabaseManager.Words.WORDS_TABLE
+        val column = DatabaseManager.Words.COLUMN_NAME
+
+        db.beginTransaction()
+
+        var values = ContentValues()
+        for (word in text){
+            values.put(column, word)
+            db.insert(table, null, values)
+            //Toast.makeText(this, "w: $word", Toast.LENGTH_SHORT).show()
+            //dbManager(word)
+        }
+
+        db.setTransactionSuccessful()
+        db.endTransaction()
+        return text.toString()
+
+ */
+
+    }
+
+
+    suspend fun createPopulatedTrie(words:List<String>):LettersSolver.Trie{
+
+        val t = LettersSolver.Trie()
+        withContext(Dispatchers.Default){
+                for (word in words){
+                    t.add_word(word)
+                }
+                for (word in words){
+                    Log.d(TAG, "word: $word is present: ${t.search_word(word)}")
+                }
+
+        }
+        return t
+    }
+
+
+    companion object{
+        private val TAG = "LettersRound"
     }
 }
