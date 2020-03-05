@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConundrumRdActivity"></activity>
+        <activity android:name=".ScoreboardActivity"></activity>
+        <activity android:name=".ConundrumRdActivity" />
         <activity android:name=".Login" />
         <activity android:name=".NumbersRdActivity2" />
         <activity android:name=".LettersRdActivity" />
