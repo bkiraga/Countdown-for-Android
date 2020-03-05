@@ -138,7 +138,7 @@ class NumbersRdActivity : AppCompatActivity() {
         var subAnswerTiles = arrayListOf<TextView>(subAnswerVar1,subAnswerVar2,subAnswerVar3,subAnswerVar4)
         var operatorAnsTiles = arrayListOf<TextView>(movedOperator1,movedOperator2,movedOperator3,movedOperator4,movedOperator5)
         var movedNumTiles = arrayListOf<TextView>(movedNum1,movedNum2,movedNum3,movedNum4,movedNum5,movedNum6,movedNum7,movedNum8,movedNum9,movedNum10)
-        var numberTiles = arrayListOf<TextView>(no1,no2,no3,no4,no5,no6)
+        var number2Tiles = arrayListOf<TextView>(movedNum2,movedNum4,movedNum6,movedNum8,movedNum10)
 
         solveButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity2 ::class.java)
@@ -363,6 +363,7 @@ class NumbersRdActivity : AppCompatActivity() {
             return answer
         }
 
+        var lastUsedOperator:TextView = movedOperator1
         // Target field for the drag object
 
         val drag = View.OnDragListener {
@@ -382,15 +383,21 @@ class NumbersRdActivity : AppCompatActivity() {
                         if (dragView in operatorTiles){
                             assignTargetOperatorTile(dragOperatorCount).text = dragView.getText()
                             assignTargetOperatorTile(dragOperatorCount).setVisibility(View.VISIBLE)
+                            lastUsedOperator = assignTargetOperatorTile(dragOperatorCount)
                             dragOperatorCount += 1
                         }
                         else {
-                            assignTargetNumTile(dragCount).text = dragView.getText()
-                            assignTargetNumTile(dragCount).setVisibility(View.VISIBLE)
-                            usedTiles.add(dragView)
-                            dragCount += 1
-                            dragView.setEnabled(false)
-                            dragView.setVisibility(View.INVISIBLE)
+                            if ((assignTargetNumTile(dragCount) in number2Tiles) && (lastUsedOperator.getText() == "")){
+                                Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                assignTargetNumTile(dragCount).text = dragView.getText()
+                                assignTargetNumTile(dragCount).setVisibility(View.VISIBLE)
+                                usedTiles.add(dragView)
+                                dragCount += 1
+                                dragView.setEnabled(false)
+                                dragView.setVisibility(View.INVISIBLE)
+                            }
                         }
                         if (movedOperator1.getText() != "" && movedNum2.getText() != "" && subAnswerVar1.getText() == "") {
                             subAnswerVar1.setVisibility(View.VISIBLE)
@@ -404,19 +411,10 @@ class NumbersRdActivity : AppCompatActivity() {
                                 movedNum2.setVisibility(View.INVISIBLE)
                                 subAnswerVar1.setVisibility(View.INVISIBLE)
                                 subAnswerVar1.setEnabled(false)
-                                if (!(dragView in operatorTiles)) {
-                                    dragView.setVisibility(View.VISIBLE)
-                                    dragView.setEnabled(true)
-                                    dragCount -= 1
-                                    usedTiles.removeAt(usedTiles.lastIndex)
-                                }
-                                else {
-                                    dragView = usedTiles.get(usedTiles.lastIndex-2)
-                                    dragView.setVisibility(View.VISIBLE)
-                                    dragView.setEnabled(true)
-                                    dragCount -= 1
-                                    usedTiles.removeAt(usedTiles.lastIndex-2)
-                                }
+                                dragView.setVisibility(View.VISIBLE)
+                                dragView.setEnabled(true)
+                                dragCount -= 1
+                                usedTiles.removeAt(usedTiles.lastIndex)
                                 Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
