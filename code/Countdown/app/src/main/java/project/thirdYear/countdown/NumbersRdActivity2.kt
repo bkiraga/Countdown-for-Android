@@ -1,6 +1,7 @@
 package project.thirdYear.countdown
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_numbers_rd2.*
 
@@ -9,6 +10,8 @@ class NumbersRdActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_numbers_rd2)
+
+        setTitle("Numbers Round")
 
         var chosenOps = intent.getStringArrayListExtra("chosenNums")
         var playerSolution = intent.getStringExtra("playerSolution")
@@ -54,6 +57,7 @@ class NumbersRdActivity2 : AppCompatActivity() {
         }
 
         solve.setOnClickListener {
+            solve.setVisibility(View.INVISIBLE)
             var solver: NumsSolver = NumsSolver()
             var nums = intent.getIntegerArrayListExtra("numList")
             var target = intent.getIntExtra("target",0)

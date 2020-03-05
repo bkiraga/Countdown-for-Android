@@ -80,6 +80,21 @@
     <string name="solveLts">solve</string>
     <string name="clearAllLtButton">clear all</string>
     <string name="clearLtTile">clear</string>
+    <string name="yourScoreText">Your Answer:</string>
+    <string name="solve">Solver Answer</string>
+    <string name="playerAnswer">""</string>
+    <string name="answerText">""</string>
+    <string name="scoreText1">"Score:"</string>
+    <string name="scoreText2">""</string>
+    <string name="singlePlayerMenuTiltle">Train Your Skills</string>
+    <string name="lettersRdButton">letters round</string>
+    <string name="numbersRdButton">numbers round</string>
+    <string name="conundrumRdButton">conundrum round</string>
+    <string name="normalGameButton">normal game</string>
+    <string name="largeNumberButton">large number</string>
+    <string name="smallNumberButton">small number</string>
+    <string name="targetNo">000</string>
+    <string name="solveButton">solve</string>
 
 
 </resources>

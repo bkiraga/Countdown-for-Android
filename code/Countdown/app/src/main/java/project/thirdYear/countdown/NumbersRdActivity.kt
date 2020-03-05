@@ -19,6 +19,8 @@ class NumbersRdActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_numbers_rd)
 
+        setTitle("Numbers Round")
+
         //Get id of UI elements
         val largeNumberButton : Button = findViewById(R.id.largeNumberButton)
         val smallNumberButton : Button = findViewById(R.id.smallNumberButton)
@@ -99,9 +101,6 @@ class NumbersRdActivity : AppCompatActivity() {
                 largeNumberButton.setVisibility(View.INVISIBLE)
                 solveButton.setEnabled(true)
                 clearTile.setEnabled(true)
-                clearTile.setVisibility(View.VISIBLE)
-                clearAllTiles.setEnabled(true)
-                clearAllTiles.setVisibility(View.VISIBLE)
             }
 
         }
@@ -123,10 +122,6 @@ class NumbersRdActivity : AppCompatActivity() {
                 smallNumberButton.setEnabled(false)
                 smallNumberButton.setVisibility(View.INVISIBLE)
                 solveButton.setEnabled(true)
-                clearTile.setEnabled(true)
-                clearTile.setVisibility(View.VISIBLE)
-                clearAllTiles.setEnabled(true)
-                clearAllTiles.setVisibility(View.VISIBLE)
             }
         }
 
@@ -376,10 +371,14 @@ class NumbersRdActivity : AppCompatActivity() {
             event?.let {
                 when (event.action) {
                     DragEvent.ACTION_DRAG_STARTED -> {
-                        view.setBackgroundColor(Color.parseColor("#FED88F"))
+                        view.setBackgroundColor(Color.parseColor("#add8e6"))
                     }
 
                     DragEvent.ACTION_DROP -> {
+                        clearTile.setEnabled(true)
+                        clearTile.setVisibility(View.VISIBLE)
+                        clearAllTiles.setEnabled(true)
+                        clearAllTiles.setVisibility(View.VISIBLE)
                         if (dragView in operatorTiles){
                             assignTargetOperatorTile(dragOperatorCount).text = dragView.getText()
                             assignTargetOperatorTile(dragOperatorCount).setVisibility(View.VISIBLE)
@@ -405,10 +404,19 @@ class NumbersRdActivity : AppCompatActivity() {
                                 movedNum2.setVisibility(View.INVISIBLE)
                                 subAnswerVar1.setVisibility(View.INVISIBLE)
                                 subAnswerVar1.setEnabled(false)
-                                dragView.setVisibility(View.VISIBLE)
-                                dragView.setEnabled(true)
-                                dragCount -= 1
-                                usedTiles.removeAt(usedTiles.lastIndex)
+                                if (!(dragView in operatorTiles)) {
+                                    dragView.setVisibility(View.VISIBLE)
+                                    dragView.setEnabled(true)
+                                    dragCount -= 1
+                                    usedTiles.removeAt(usedTiles.lastIndex)
+                                }
+                                else {
+                                    dragView = usedTiles.get(usedTiles.lastIndex-2)
+                                    dragView.setVisibility(View.VISIBLE)
+                                    dragView.setEnabled(true)
+                                    dragCount -= 1
+                                    usedTiles.removeAt(usedTiles.lastIndex-2)
+                                }
                                 Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                         }
@@ -470,19 +478,19 @@ class NumbersRdActivity : AppCompatActivity() {
                             }
                         }
 
-                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        view.setBackgroundColor(Color.parseColor("#47D1D4"))
 
                     }
 
                     DragEvent.ACTION_DRAG_ENTERED -> {
                         //change the target colour when drag item hovers over it
-                        view.setBackgroundColor(Color.parseColor("#FEF65B"))
+                        view.setBackgroundColor(Color.parseColor("#e0ffff"))
                     }
                     DragEvent.ACTION_DRAG_EXITED -> {
-                        view.setBackgroundColor(Color.parseColor("#FED88F"))
+                        view.setBackgroundColor(Color.parseColor("#add8e6"))
                     }
                     DragEvent.ACTION_DRAG_ENDED -> {
-                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        view.setBackgroundColor(Color.parseColor("#47D1D4"))
                     }
                     else -> { }
                 }
