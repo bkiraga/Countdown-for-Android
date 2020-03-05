@@ -27,6 +27,18 @@ class MpNumbersRound : AppCompatActivity() {
         getMessage()
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
     private fun sendMessage(){
         //val senderID = FirebaseAuth.getInstance().currentUser.toString()
         //Log.d(TAG, "currentUser is $senderID")
@@ -50,7 +62,7 @@ class MpNumbersRound : AppCompatActivity() {
     }
 
     private fun getMessage(){
-        var textsRecv = findViewById(R.id.texts_received) as EditText
+        //var textsRecv = findViewById(R.id.texts_received) as EditText
         var messages = arrayListOf<String>()
 
         gamesRef.addValueEventListener(object : ValueEventListener {
@@ -59,7 +71,7 @@ class MpNumbersRound : AppCompatActivity() {
                  Log.d(TAG, "child is $child")
                  //messages.p
 
-                 textsRecv.setText(child.toString())
+                 //textsRecv.setText(child.toString())
 
              }
             }

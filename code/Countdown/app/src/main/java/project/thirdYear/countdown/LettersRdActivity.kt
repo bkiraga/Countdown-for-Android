@@ -1,11 +1,11 @@
 package project.thirdYear.countdown
 
-
 import android.content.ClipData
 import android.graphics.Color
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.view.DragEvent
@@ -24,43 +24,27 @@ import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlin.collections.ArrayList
 import kotlin.system.measureTimeMillis
-
 
 class LettersRdActivity : AppCompatActivity() {
 
-    //@RequiresApi(Build.VERSION_CODES.O)
+    var usedTiles = arrayListOf<TextView>()
+    var allTiles = arrayListOf<TextView>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_letters_rd)
         setUp()
-        //dbManager("PARLIAMENT")
-        val mutex = Mutex()
         CoroutineScope(Dispatchers.Main).launch {
-
-
-            var duration = measureTimeMillis {
-                mutex.withLock {
-                    var trie = async { createPopulatedTrie(readTxtFile()) }
-                    var size = trie.await().getTrieSize()
-                    Toast.makeText(this@LettersRdActivity, "Trie has $size many items", Toast.LENGTH_LONG).show()
-                    var exists = trie.await().search_word("AARDVARK".trim())
-                    var exits = trie.await().search_word("AARONITE".trim())
-                    Toast.makeText(this@LettersRdActivity, "AARDVARK exists: $exists", Toast.LENGTH_LONG).show()
-                    Toast.makeText(this@LettersRdActivity, "AARDVARK exists: $exits", Toast.LENGTH_LONG).show()
-                }
-            }
-            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
-            Toast.makeText(this@LettersRdActivity, "Time: $duration", Toast.LENGTH_LONG).show()
+            checkUserWord(usedTiles, allTiles)
 
         }
 
-
-        //populateDB()
     }
 
-
     override fun onStart() {
+
         super.onStart()
         //test()
     }
@@ -183,8 +167,9 @@ class LettersRdActivity : AppCompatActivity() {
         }
 
         var dragCount = 0
-        var usedTiles = arrayListOf<TextView>()
+        //usedTiles =
         var movedLtTiles = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
+
 
         fun clearAllLts(){
             for (tile in usedTiles) {
@@ -219,7 +204,6 @@ class LettersRdActivity : AppCompatActivity() {
         }
 
 
-
         fun assignTargetLtTile(dragCount:Int): TextView {
             var targetLtTile = when (dragCount){
                 0 -> movedLt1
@@ -234,6 +218,7 @@ class LettersRdActivity : AppCompatActivity() {
             }
             return targetLtTile
         }
+
 
         val drag = View.OnDragListener{
             view, event ->
@@ -272,7 +257,71 @@ class LettersRdActivity : AppCompatActivity() {
         }
         clearAllLts()
         letterTargetField.setOnDragListener(drag)
+
+        allTiles = arrayListOf<TextView>(lt1,lt2,lt3,lt4,lt5,lt6,lt7,lt8,lt9)
     }
+
+    suspend fun checkUserWord(usedTiles:ArrayList<TextView>, allTiles: ArrayList<TextView>) {
+        var trie = withContext(Dispatchers.Main){
+            return@withContext getTrie().await()
+        }
+
+        var btnSolv = findViewById(R.id.solveLts) as Button
+
+        btnSolv.setOnClickListener {
+            var word = ""
+            for (tile in usedTiles){
+                word += tile.text
+                //Toast.makeText(this, "Tile text: ${tile.text}", Toast.LENGTH_SHORT).show()
+            }
+
+            var exists = trie.search_word(word)
+            Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
+
+            CoroutineScope(Dispatchers.Main).launch{
+                val mutex = Mutex()
+                mutex.withLock {
+                    var sol =  findSolution(trie, allTiles).second
+                    Toast.makeText(this@LettersRdActivity, "best Solution is: $sol", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+            //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+     fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
+         var letters = allTiles.map { it.text.toString() }
+         var allLetterSets = trie.permutation(letters)
+         var allWords = ArrayList<String>()
+
+         var bestSOlSize = 9
+         var bestSolution = ""
+         var solutionSize = 0
+
+         for (word in allWords){
+
+             var posSol = trie.solutionLength(word)
+             Toast.makeText(this, "sol size: ${posSol.first} sol: ${posSol.second}", Toast.LENGTH_LONG).show()
+             Log.d(TAG, "sol size: ${posSol.first} sol: ${posSol.second}")
+             if (solutionSize < posSol.first){
+
+                 solutionSize = posSol.first
+                 bestSolution = posSol.second
+                 Log.d(TAG, "Async: $bestSolution")
+             }
+             if (solutionSize == bestSOlSize){
+                 bestSolution = posSol.second
+                 return Pair(77, "TESTING")
+             }
+         }
+         Log.d(TAG, "bestSol w Context : $bestSolution")
+         return Pair(777, "AGAIN TESTING")
+     }
+
 
     public fun dbManager(word:String):MutableList<String> {
 
@@ -331,21 +380,39 @@ class LettersRdActivity : AppCompatActivity() {
 
     }
 
-
     suspend fun createPopulatedTrie(words:List<String>):LettersSolver.Trie{
         val mutex = Mutex()
         mutex.withLock {
             val t = LettersSolver.Trie()
             withContext(Dispatchers.Default){
-                for (word in words.subList(1,100)){
-                    Log.d(TAG, "ADDING $word to Trie. SIZE is: ${word.trim().length}")
+                for (word in words){
+                    //Log.d(TAG, "ADDING $word to Trie. SIZE is: ${word.trim().length}")
                     t.add_word(word.trim())
-                    Log.d(TAG, "man: AARDVARK :${t.search_word("AARDVARK".trim())}")
-                    Log.d(TAG, "man: AARONITE :${t.search_word("AARONITE".trim())}")
+                    //Log.d(TAG, "man: AARDVARK :${t.search_word("AARDVARK".trim())}")
+                    //Log.d(TAG, "man: AARONITE :${t.search_word("AARONITE".trim())}")
                 }
             }
             return t
         }
+    }
+
+    suspend fun getTrie():Deferred<LettersSolver.Trie>{
+        var populatedTrie = withContext(Dispatchers.Main){
+            //running on separate thread
+            var trie = async { createPopulatedTrie(readTxtFile()) }
+            var size = trie.await().getTrieSize()
+
+            Toast.makeText(this@LettersRdActivity, "Trie has $size many items", Toast.LENGTH_LONG).show()
+
+            //var exists = trie.await().search_word("AARDVARK".trim())
+            //var exits = trie.await().search_word("AARONITE".trim())
+
+            //Toast.makeText(this@LettersRdActivity, "AARDVARK exists: $exists", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this@LettersRdActivity, "AARONITE exists: $exits", Toast.LENGTH_LONG).show()
+
+            return@withContext trie
+        }
+        return populatedTrie
     }
 
 
