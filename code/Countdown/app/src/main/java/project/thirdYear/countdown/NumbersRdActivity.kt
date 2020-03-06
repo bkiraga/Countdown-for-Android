@@ -72,9 +72,9 @@ class NumbersRdActivity : AppCompatActivity() {
         var numList = arrayListOf<Int>()
         var counter : Int = 0
         var target : Int = 0
-        var currentTime: Int = 30
+        var currentTime: Int = 45
 
-        val countDownTimer = object : CountDownTimer(40000, 1000) {
+        val countDownTimer = object : CountDownTimer(45000, 1000) {
             override fun onTick(millisLeft: Long) {
                 currentTime = numberTimer.getText().toString().toInt()
                 currentTime -= 1
