@@ -21,6 +21,7 @@ class SinglePlayerMenu : AppCompatActivity() {
         normalGameButton.setOnClickListener {
             val intent = Intent(this,LettersRdActivity::class.java)
             intent.putExtra("GameType","NormalGame")
+            intent.putExtra("flag","letters")
             startActivity(intent)
         }
 

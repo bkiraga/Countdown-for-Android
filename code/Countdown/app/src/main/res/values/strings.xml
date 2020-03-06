@@ -80,7 +80,7 @@
     <string name="solveLts">solve</string>
     <string name="clearAllLtButton">clear all</string>
     <string name="clearLtTile">clear</string>
-    <string name="yourScoreText">Your Answer:</string>
+    <string name="yourScoreText">Answer:</string>
     <string name="solve">Solver Answer</string>
     <string name="playerAnswer">""</string>
     <string name="answerText">""</string>
@@ -97,6 +97,22 @@
     <string name="solveButton">solve</string>
     <string name="numberTimer">30</string>
     <string name="letterTimer">30</string>
+    <string name="ltSolutionText">Your Answer:</string>
+    <string name="ltPlayerSolution">""</string>
+    <string name="ltScoreText">Your Score:</string>
+    <string name="ltPlayerScore">""</string>
+    <string name="opponentltSolutionText">Opponent Solution:</string>
+    <string name="opponentltScoreText">Opponent Score:</string>
+    <string name="ltOpponentSolution">""</string>
+    <string name="ltOpponentScore">""</string>
+    <string name="ltSolverButton">Solver Answer</string>
+    <string name="ltSolverAnswer">""</string>
+    <string name="nextRound1">"Next Round"</string>
+    <string name="column1">"You"</string>
+    <string name="column2">"Opponent"</string>
+    <string name="opponentAnswer">""</string>
+    <string name="scoreText3">""</string>
+    <string name="nextRound2">Next Round</string>
 
 
 </resources>

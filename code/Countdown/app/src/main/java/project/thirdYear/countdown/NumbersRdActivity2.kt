@@ -1,9 +1,14 @@
 package project.thirdYear.countdown
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_letters_rd2.*
 import kotlinx.android.synthetic.main.activity_numbers_rd2.*
+import java.lang.Math.sqrt
+import kotlin.math.absoluteValue
 
 class NumbersRdActivity2 : AppCompatActivity() {
 
@@ -12,25 +17,56 @@ class NumbersRdActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_numbers_rd2)
 
         setTitle("Numbers Round")
+        val countDownTimer = object : CountDownTimer(15000, 1000) {
+            override fun onTick(millisLeft: Long) {
+            }
+            override fun onFinish() {
+                nextRound2.performClick()
+            }
+        }
 
         var chosenOps = intent.getStringArrayListExtra("chosenNums")
-        var playerSolution = intent.getStringExtra("playerSolution")
+        var target = intent.getIntExtra("target",0)
+        var solution:Int = intent.getStringExtra("playerSolution").toInt()
         var lines = arrayListOf<String>()
-        var line: String = ""
-        var i = 0
-        while (i < chosenOps.size){
-            line = chosenOps.get(i) + chosenOps.get(i+1) + chosenOps.get(i+2) + "=" + chosenOps.get(i+3)
-            lines.add(line)
-            i += 4
+        if (chosenOps.size >= 4) {
+            var line: String = ""
+            var i = 0
+            while (i < chosenOps.size) {
+                line =
+                    chosenOps.get(i) + chosenOps.get(i + 1) + chosenOps.get(i + 2) + "=" + chosenOps.get(
+                        i + 3
+                    )
+                lines.add(line)
+                i += 4
+            }
+            var formatAnswer = ""
+            for (l in lines) {
+                formatAnswer += l + "\n"
+            }
+
+            playerAnswer.text = formatAnswer
         }
-        var formatAnswer = ""
-        for (l in lines){
-            formatAnswer += l + "\n"
+
+        fun getScore(target:Int, solution:Int):Int{
+            var score = 0
+            if (target == solution){
+                score = 10
+            }
+            var difference = target - solution
+            if (difference.absoluteValue <= 5 && difference.absoluteValue > 0){
+                score = 7
+            }
+            if (difference.absoluteValue <= 10 && difference.absoluteValue > 5){
+                score = 5
+            }
+            else{
+                score = 0
+            }
+            return 0
         }
 
-        playerAnswer.text = formatAnswer
-
-
+        scoreText2.text = getScore(target,solution).toString()
 
 
 
@@ -151,6 +187,11 @@ class NumbersRdActivity2 : AppCompatActivity() {
             }
             answerText.text = s
 
+        }
+        nextRound2.setOnClickListener {
+            val intent = Intent(this,LettersRdActivity::class.java)
+            intent.putExtra("flag","conundrum")
+            startActivity(intent)
         }
     }
 

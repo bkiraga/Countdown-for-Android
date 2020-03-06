@@ -35,6 +35,18 @@ class LettersRdActivity : AppCompatActivity() {
     var userScore = 0
     var usedTiles = arrayListOf<TextView>()
     var allTiles = arrayListOf<TextView>()
+    var currentTime: Int = 45
+    val countDownTimer = object : CountDownTimer(45000, 1000) {
+        override fun onTick(millisLeft: Long) {
+            currentTime = letterTimer.getText().toString().toInt()
+            currentTime -= 1
+            letterTimer.text = currentTime.toString()
+
+        }
+        override fun onFinish() {
+            solveLts.performClick()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,19 +142,6 @@ class LettersRdActivity : AppCompatActivity() {
         var vowels = arrayListOf<String>("A", "E", "I", "O", "U")
         var consonants = arrayListOf<String>("B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z")
         var counter: Int = 0
-        var currentTime: Int = 30
-
-        val countDownTimer = object : CountDownTimer(30000, 1000) {
-            override fun onTick(millisLeft: Long) {
-                currentTime = letterTimer.getText().toString().toInt()
-                currentTime -= 1
-                letterTimer.text = currentTime.toString()
-
-            }
-            override fun onFinish() {
-                solveLts.performClick()
-            }
-        }
 
         fun assign(counter: Int): TextView {
             var ltF = when (counter) {
@@ -355,6 +354,7 @@ class LettersRdActivity : AppCompatActivity() {
         var btnSolv = findViewById(R.id.solveLts) as Button
 
         btnSolv.setOnClickListener {
+            countDownTimer.cancel()
             var word = ""
             for (tile in usedTiles){
                 word += tile.text
@@ -373,9 +373,21 @@ class LettersRdActivity : AppCompatActivity() {
                 }
 
             }
+            val letterSolution = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
+            val intent = Intent(this, LettersRdActivity2 ::class.java)
+            var s:String = ""
+            for (letter in letterSolution){
+                if (letter.getText() != ""){
+                    s += letter.getText().toString()
+                }
+            }
+            intent.putExtra("playerLetterSolution", s)
+            intent.putExtra("exists",exists)
+            startActivity(intent)
 
             //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()
         }
+
 
     }
 
