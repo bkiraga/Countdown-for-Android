@@ -72,7 +72,7 @@ class NumbersRdActivity : AppCompatActivity() {
         var target : Int = 0
         var currentTime: Int = 30
 
-        val countDownTimer = object : CountDownTimer(30000, 1000) {
+        val countDownTimer = object : CountDownTimer(40000, 1000) {
             override fun onTick(millisLeft: Long) {
                 currentTime = numberTimer.getText().toString().toInt()
                 currentTime -= 1
@@ -160,6 +160,8 @@ class NumbersRdActivity : AppCompatActivity() {
         solveButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity2 ::class.java)
             intent.putIntegerArrayListExtra("numList",numList)
+
+            //Finds the result of user's operation
             var playerSolution: String = ""
             for (answer in subAnswerTiles.reversed()){
                 if (answer.getText() != ""){
@@ -167,15 +169,27 @@ class NumbersRdActivity : AppCompatActivity() {
                     break
                 }
             }
+            //user's operations saved
             intent.putExtra("playerSolution", playerSolution)
             intent.putExtra("target", target)
             var playerAnswer = arrayListOf<String>()
-            for (tile in answerTiles){
-                if (tile.getText() != ""){
-                    playerAnswer.add(tile.getText().toString())
-                }
+            var i = answerTiles.size - 1
+
+            while (i != 0) {
+                if ((answerTiles.get(i).getText() != "") && (answerTiles.get(i) in subAnswerTiles)){
+                        break
+                    }
+                i -= 1
             }
-            Toast.makeText(this, playerAnswer.toString(), Toast.LENGTH_SHORT).show()
+
+
+
+
+            for (j in 0 until i+1){
+                playerAnswer.add(answerTiles.get(j).getText().toString())
+            }
+
+            //Toast.makeText(this, playerAnswer.toString(), Toast.LENGTH_LONG).show()
             intent.putStringArrayListExtra("chosenNums",playerAnswer)
             startActivity(intent)
         }

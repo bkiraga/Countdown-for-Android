@@ -16,20 +16,21 @@ class NumbersRdActivity2 : AppCompatActivity() {
         var chosenOps = intent.getStringArrayListExtra("chosenNums")
         var playerSolution = intent.getStringExtra("playerSolution")
         var lines = arrayListOf<String>()
-        var line: String
+        var line: String = ""
         var i = 0
         while (i < chosenOps.size){
             line = chosenOps.get(i) + chosenOps.get(i+1) + chosenOps.get(i+2) + "=" + chosenOps.get(i+3)
             lines.add(line)
             i += 4
         }
-
         var formatAnswer = ""
         for (l in lines){
             formatAnswer += l + "\n"
         }
 
         playerAnswer.text = formatAnswer
+
+
 
 
 
