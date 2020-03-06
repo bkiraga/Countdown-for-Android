@@ -193,7 +193,7 @@ class NumbersRdActivity2 : AppCompatActivity() {
         nextRound2.setOnClickListener {
             activityCount += 1
             Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
-            val intent = Intent(this, ScoreboardActivity::class.java)
+            val intent = Intent(this, ConundrumActivity::class.java)
             intent.putExtra("activityCount", activityCount)
             intent.putExtra("flag", "conundrum")
             startActivity(intent)
