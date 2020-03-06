@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -67,7 +68,8 @@ class Login : AppCompatActivity() {
     }
 
     public fun signedInUI(){
-        val intent = Intent(this, MpNumbersRound::class.java)
+        val intent = Intent(this, NumbersRdActivity::class.java)
+        intent.putExtra("Multiplayer", "Multiplayer")
         startActivity(intent)
     }
 

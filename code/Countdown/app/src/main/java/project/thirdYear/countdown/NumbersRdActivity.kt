@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_letters_rd.*
 import kotlinx.android.synthetic.main.activity_numbers_rd.*
+import kotlinx.android.synthetic.main.activity_single_player_menu.*
 import java.util.*
+
 
 class NumbersRdActivity : AppCompatActivity() {
 
@@ -164,7 +166,7 @@ class NumbersRdActivity : AppCompatActivity() {
             //Finds the result of user's operation
             var playerSolution: String = ""
             for (answer in subAnswerTiles.reversed()){
-                if (answer.getText() != ""){
+                if (answer.text != ""){
                     playerSolution = answer.getText().toString()
                     break
                 }
@@ -191,7 +193,9 @@ class NumbersRdActivity : AppCompatActivity() {
 
             //Toast.makeText(this, playerAnswer.toString(), Toast.LENGTH_LONG).show()
             intent.putStringArrayListExtra("chosenNums",playerAnswer)
+
             startActivity(intent)
+
         }
 
 
@@ -290,50 +294,55 @@ class NumbersRdActivity : AppCompatActivity() {
             plusButton.startDrag(clipdata, dragShadow, plusButton, 0)
             true
         }
+
         minusButton.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(minusButton)
             var clipdata = ClipData.newPlainText("", "  ")
             minusButton.startDrag(clipdata, dragShadow, minusButton, 0)
             true
         }
+
         multButton.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(multButton)
             var clipdata = ClipData.newPlainText("", "  ")
             multButton.startDrag(clipdata, dragShadow, multButton, 0)
             true
         }
+
         divButton.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(divButton)
             var clipdata = ClipData.newPlainText("", "  ")
             divButton.startDrag(clipdata, dragShadow, divButton, 0)
             true
         }
+
         subAnswerVar1.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(subAnswerVar1)
             var clipdata = ClipData.newPlainText("", "  ")
             subAnswerVar1.startDrag(clipdata, dragShadow, subAnswerVar1, 0)
             true
         }
+
         subAnswerVar2.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(subAnswerVar2)
             var clipdata = ClipData.newPlainText("", "  ")
             subAnswerVar2.startDrag(clipdata, dragShadow, subAnswerVar2, 0)
             true
         }
+
         subAnswerVar3.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(subAnswerVar3)
             var clipdata = ClipData.newPlainText("", "  ")
             subAnswerVar3.startDrag(clipdata, dragShadow, subAnswerVar3, 0)
             true
         }
+
         subAnswerVar4.setOnLongClickListener {
             var dragShadow = View.DragShadowBuilder(subAnswerVar4)
             var clipdata = ClipData.newPlainText("", "  ")
             subAnswerVar4.startDrag(clipdata, dragShadow, subAnswerVar4, 0)
             true
         }
-
-
 
 
         fun assignTargetNumTile(dragCount:Int): Button {
@@ -530,6 +539,37 @@ class NumbersRdActivity : AppCompatActivity() {
         targetField.setOnDragListener(drag)
 
     }
+
+    fun gameRunner(){
+        val normalGameExtra = "NormalGame"
+        val multiPlayer = "Multiplayer"
+        normalGameButton.setOnClickListener {
+            val normalGameType = intent.getStringExtra("GameType")
+            if (normalGameType == normalGameExtra){
+                startNormalGame(normalGameExtra)
+            }
+            val multiPlayerGameType = intent.getStringExtra("Multiplayer")
+            if (multiPlayerGameType == multiPlayer){
+                startMultiplayerGame(multiPlayer)
+            }
+        }
+    }
+    fun startMultiplayerGame(multiPlayer:String){
+        val MultiPlayer = "Multiplayer"
+        val intent = Intent(this, NumbersRdActivity2::class.java)
+        intent.putExtra(MultiPlayer, multiPlayer)
+        startActivity(intent)
+    }
+
+    fun startNormalGame(intentExtra:String){
+        //start Letters -> Numbers -> Conundrum
+        val intent = Intent(this, NumbersRdActivity2::class.java)
+        val GameType = "GameType"
+        intent.putExtra(GameType, intentExtra)
+        startActivity(intent)
+    }
+
+
 
 
     }
