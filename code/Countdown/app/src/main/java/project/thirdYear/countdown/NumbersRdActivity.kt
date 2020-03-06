@@ -18,6 +18,15 @@ import java.util.*
 
 
 class NumbersRdActivity : AppCompatActivity() {
+/*
+    val round = "round"
+    val scoreK = "score"
+    val GameType = "gameType"
+    val previousRdScore = intent.getStringExtra(scoreK).toInt()
+    var userScore = previousRdScore
+
+ */
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -521,41 +530,46 @@ class NumbersRdActivity : AppCompatActivity() {
             }
             true
         }
-
         targetField.setOnDragListener(drag)
-
     }
+    /*
 
-    fun gameRunner(){
-        val normalGameExtra = "NormalGame"
-        val multiPlayer = "Multiplayer"
-        normalGameButton.setOnClickListener {
-            val normalGameType = intent.getStringExtra("GameType")
-            if (normalGameType == normalGameExtra){
-                startNormalGame(normalGameExtra)
-            }
-            val multiPlayerGameType = intent.getStringExtra("Multiplayer")
-            if (multiPlayerGameType == multiPlayer){
-                startMultiplayerGame(multiPlayer)
-            }
+    fun gameHandler(){
+        val gameType = intent.getStringExtra("gameType")
+        val prevRound = intent.getStringExtra("round")
+        if (round == "Numbers"){
+            val intent = Intent(this, LettersRdActivity::class.java)
+            intent.putExtra(round, "Numbers")
+            intent.putExtra(scoreK, userScore)
+            intent.putExtra(GameType, gameType)
+            startActivity(intent)
         }
+        userScore = intent.getStringExtra("score").toInt()
+        if (gameType == "NormalGameLetters"){
+            startNormalGame(scoreK,gameType, prevRound)
+        }
+        startMultiplayerGame(scoreK, gameType, prevRound)
     }
-    fun startMultiplayerGame(multiPlayer:String){
+
+    fun startMultiplayerGame(scoreK:String, gameType: String, prevRound: String){
         val MultiPlayer = "Multiplayer"
+
         val intent = Intent(this, NumbersRdActivity2::class.java)
-        intent.putExtra(MultiPlayer, multiPlayer)
+
+        intent.putExtra(scoreK, userScore)
+        intent.putExtra(GameType, gameType)
         startActivity(intent)
     }
 
-    fun startNormalGame(intentExtra:String){
+    fun startNormalGame(scoreK: String, gameType:String, prevRound:String){
         //start Letters -> Numbers -> Conundrum
         val intent = Intent(this, NumbersRdActivity2::class.java)
-        val GameType = "GameType"
-        intent.putExtra(GameType, intentExtra)
+
+        intent.putExtra(round, prevRound)
+        intent.putExtra(scoreK, userScore)
+        intent.putExtra(GameType, gameType)
         startActivity(intent)
     }
 
-
-
-
-    }
+     */
+}

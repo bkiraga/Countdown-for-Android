@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.graphics.Color
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.nfc.Tag
 import android.os.Build
@@ -30,6 +31,8 @@ import kotlin.system.measureTimeMillis
 
 class LettersRdActivity : AppCompatActivity() {
 
+    val scoreIntentKey = "score"
+    var userScore = 0
     var usedTiles = arrayListOf<TextView>()
     var allTiles = arrayListOf<TextView>()
 
@@ -39,7 +42,9 @@ class LettersRdActivity : AppCompatActivity() {
         if (intent.getStringExtra("flag") == "letters") {
             setTitle("Letters Round")
         }
-        else setTitle("Conundrum Round")
+        else {
+            setTitle("Conundrum Round")
+        }
         setUp()
         CoroutineScope(Dispatchers.Main).launch {
             checkUserWord(usedTiles, allTiles)
@@ -48,8 +53,46 @@ class LettersRdActivity : AppCompatActivity() {
 
     }
 
-    override fun onStart() {
+    fun getRandomNumber(){
 
+    }
+
+    //suspend fun conundrumStyle(nineLetterWords:ArrayList<String>){
+
+
+    //}
+
+    fun gameHandler(){
+        val gameType = intent.getStringExtra("gameType")
+        if (gameType == "multiplayer"){
+            startMultiPlayer()
+        }
+        startNormalGame()
+    }
+
+    fun startMultiPlayer(){
+        val multiPlayerV = "MultiplayerLetters"
+        val multiPlayerT = "gameType"
+        solveLts.setOnClickListener {
+            val intent = Intent(this, NumbersRdActivity::class.java)
+            intent.putExtra(multiPlayerT,multiPlayerV)
+            intent.putExtra(scoreIntentKey, userScore)
+            startActivity(intent)
+        }
+    }
+
+    fun startNormalGame(){
+        val gameTypeT = "gameType"
+        val gameTypeV = "NormalGameLetters"
+        solveLts.setOnClickListener {
+            val intent = Intent(this, NumbersRdActivity::class.java)
+            intent.putExtra(gameTypeT, gameTypeV)
+            intent.putExtra(scoreIntentKey, userScore)
+            startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
         super.onStart()
         //test()
     }
@@ -336,7 +379,7 @@ class LettersRdActivity : AppCompatActivity() {
 
     }
 
-     fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
+    fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
          var letters = allTiles.map { it.text.toString() }
          var allLetterSets = trie.permutation(letters)
          var allWords = ArrayList<String>()
@@ -364,7 +407,6 @@ class LettersRdActivity : AppCompatActivity() {
          Log.d(TAG, "bestSol w Context : $bestSolution")
          return Pair(777, "AGAIN TESTING")
      }
-
 
     public fun dbManager(word:String):MutableList<String> {
 
@@ -421,6 +463,22 @@ class LettersRdActivity : AppCompatActivity() {
 
  */
 
+    }
+
+    suspend fun getNineLetterWords(words:List<String>):ArrayList<String>{
+        val nineLetterWords = arrayListOf<String>()
+        val mutex = Mutex()
+        mutex.withLock {
+            withContext(Dispatchers.IO){
+                for (word in words){
+                    if (word.trim().length == 9){
+                        nineLetterWords.add(word)
+                    }
+                }
+            }
+
+        }
+        return nineLetterWords
     }
 
     suspend fun createPopulatedTrie(words:List<String>):LettersSolver.Trie{
