@@ -81,9 +81,9 @@ class NumbersRdActivity : AppCompatActivity() {
         var numList = arrayListOf<Int>()
         var counter : Int = 0
         var target : Int = 0
-        var currentTime: Int = 45
+        var currentTime: Int = 30
 
-        val countDownTimer = object : CountDownTimer(45000, 1000) {
+        val countDownTimer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisLeft: Long) {
                 currentTime = numberTimer.getText().toString().toInt()
                 currentTime -= 1
@@ -171,6 +171,9 @@ class NumbersRdActivity : AppCompatActivity() {
         solveButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity2 ::class.java)
             intent.putIntegerArrayListExtra("numList",numList)
+            var activityCount = intent.getIntExtra("activityCount",0)
+            activityCount += 1
+            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
 
             //Finds the result of user's operation
             var playerSolution: String = ""
@@ -183,6 +186,7 @@ class NumbersRdActivity : AppCompatActivity() {
             //user's operations saved
             intent.putExtra("playerSolution", playerSolution)
             intent.putExtra("target", target)
+            intent.putExtra("activityCount",activityCount)
             var playerAnswer = arrayListOf<String>()
             var i = answerTiles.size - 1
 

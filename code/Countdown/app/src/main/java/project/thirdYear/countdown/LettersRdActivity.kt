@@ -31,12 +31,13 @@ import kotlin.system.measureTimeMillis
 
 class LettersRdActivity : AppCompatActivity() {
 
+    var activityCount = 0
     val scoreIntentKey = "score"
     var userScore = 0
     var usedTiles = arrayListOf<TextView>()
     var allTiles = arrayListOf<TextView>()
-    var currentTime: Int = 45
-    val countDownTimer = object : CountDownTimer(45000, 1000) {
+    var currentTime: Int = 30
+    val countDownTimer = object : CountDownTimer(30000, 1000) {
         override fun onTick(millisLeft: Long) {
             currentTime = letterTimer.getText().toString().toInt()
             currentTime -= 1
@@ -53,9 +54,13 @@ class LettersRdActivity : AppCompatActivity() {
         setContentView(R.layout.activity_letters_rd)
         if (intent.getStringExtra("flag") == "letters") {
             setTitle("Letters Round")
+            //controlFlowFlag = "x"
+            Toast.makeText(this, "letters", Toast.LENGTH_LONG).show()
         }
         else {
             setTitle("Conundrum Round")
+            //controlFlowFlag = "y"
+            Toast.makeText(this, "conundrum", Toast.LENGTH_LONG).show()
         }
         setUp()
         CoroutineScope(Dispatchers.Main).launch {
@@ -354,6 +359,8 @@ class LettersRdActivity : AppCompatActivity() {
         var btnSolv = findViewById(R.id.solveLts) as Button
 
         btnSolv.setOnClickListener {
+            activityCount += 1
+            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
             countDownTimer.cancel()
             var word = ""
             for (tile in usedTiles){
@@ -383,6 +390,7 @@ class LettersRdActivity : AppCompatActivity() {
             }
             intent.putExtra("playerLetterSolution", s)
             intent.putExtra("exists",exists)
+            intent.putExtra("activityCount", activityCount)
             startActivity(intent)
 
             //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()

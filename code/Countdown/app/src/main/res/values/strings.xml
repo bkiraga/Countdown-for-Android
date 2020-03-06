@@ -113,6 +113,22 @@
     <string name="opponentAnswer">""</string>
     <string name="scoreText3">""</string>
     <string name="nextRound2">Next Round</string>
+    <string name="roundColumn">Players</string>
+    <string name="roundColumn1">Letters</string>
+    <string name="roundColumn2">Numbers</string>
+    <string name="roundColumn3">Conundrum</string>
+    <string name="totalColumn">Total</string>
+    <string name="user1column">You</string>
+    <string name="user2column">Opponent</string>
+    <string name="user2score1">""</string>
+    <string name="user2score2">""</string>
+    <string name="user1Score1">""</string>
+    <string name="user1Score2">""</string>
+    <string name="user1Score3">""</string>
+    <string name="user1ScoreTotal">""</string>
+    <string name="user2score3">""</string>
+    <string name="user2scoreTotal">""</string>
+    <string name="returnMenu">"Menu"</string>
 
 
 </resources>
