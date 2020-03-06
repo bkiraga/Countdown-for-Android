@@ -35,6 +35,10 @@ class LettersRdActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_letters_rd)
+        if (intent.getStringExtra("flag") == "letters") {
+            setTitle("Letters Round")
+        }
+        else setTitle("Conundrum Round")
         setUp()
         CoroutineScope(Dispatchers.Main).launch {
             checkUserWord(usedTiles, allTiles)
@@ -73,6 +77,11 @@ class LettersRdActivity : AppCompatActivity() {
         val lt8: TextView = findViewById(R.id.lt8)
         val lt9: TextView = findViewById(R.id.lt9)
         val clearLtTile : TextView = findViewById(R.id.clearLtTile)
+        val clearAllLtButton : TextView = findViewById(R.id.clearAllLtButton)
+        clearLtTile.setVisibility(View.INVISIBLE)
+        clearLtTile.setEnabled(false)
+        clearAllLtButton.setVisibility(View.INVISIBLE)
+        clearAllLtButton.setEnabled(false)
 
         var vowels = arrayListOf<String>("A", "E", "I", "O", "U")
         var consonants = arrayListOf<String>("B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z")
@@ -99,6 +108,13 @@ class LettersRdActivity : AppCompatActivity() {
                 var ltF = assign(counter)
                 ltF.text = vowel.toString()
                 counter += 1
+                if (counter == 9){
+                    vowelButton.setVisibility(View.INVISIBLE)
+                    consonantButton.setVisibility(View.INVISIBLE)
+                    vowelButton.setEnabled(false)
+                    consonantButton.setEnabled(false)
+
+                }
             }
         }
         consonantButton.setOnClickListener {
@@ -108,6 +124,12 @@ class LettersRdActivity : AppCompatActivity() {
                 var ltF = assign(counter)
                 ltF.text = consonant.toString()
                 counter += 1
+                if (counter == 9){
+                    vowelButton.setVisibility(View.INVISIBLE)
+                    consonantButton.setVisibility(View.INVISIBLE)
+                    vowelButton.setEnabled(false)
+                    consonantButton.setEnabled(false)
+                }
             }
         }
 
@@ -226,8 +248,13 @@ class LettersRdActivity : AppCompatActivity() {
             event?.let{
                 when (event.action){
                     DragEvent.ACTION_DRAG_STARTED -> {
+                        view.setBackgroundColor(Color.parseColor("#add8e6"))
                     }
                     DragEvent.ACTION_DROP -> {
+                        clearLtTile.setVisibility(View.VISIBLE)
+                        clearLtTile.setEnabled(true)
+                        clearAllLtButton.setVisibility(View.VISIBLE)
+                        clearAllLtButton.setEnabled(true)
                         var targetTile = assignTargetLtTile(dragCount)
                         targetTile.text = dragView.getText()
                         targetTile.setVisibility(View.VISIBLE)
@@ -239,13 +266,13 @@ class LettersRdActivity : AppCompatActivity() {
                         view.setBackgroundColor(Color.parseColor("#FFFFFF"))
                     }
                     DragEvent.ACTION_DRAG_ENTERED -> {
-                        view.setBackgroundColor(Color.parseColor("#FED88F"))
+                        view.setBackgroundColor(Color.parseColor("#e0ffff"))
                     }
                     DragEvent.ACTION_DRAG_EXITED -> {
-
+                        view.setBackgroundColor(Color.parseColor("#add8e6"))
                     }
                     DragEvent.ACTION_DRAG_ENDED -> {
-
+                        view.setBackgroundColor(Color.parseColor("#47D1D4"))
                     }
                     else -> {}
 

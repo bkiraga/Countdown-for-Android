@@ -387,7 +387,7 @@ class NumbersRdActivity : AppCompatActivity() {
                             dragOperatorCount += 1
                         }
                         else {
-                            if ((assignTargetNumTile(dragCount) in number2Tiles) && (lastUsedOperator.getText() == "")){
+                            if ((assignTargetNumTile(dragCount) in number2Tiles) && (lastUsedOperator.getText() != "")){
                                 Toast.makeText(this, "Invalid Operation", Toast.LENGTH_SHORT).show()
                             }
                             else {
