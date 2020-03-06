@@ -68,7 +68,7 @@ class Login : AppCompatActivity() {
     }
 
     public fun signedInUI(){
-        val intent = Intent(this, NumbersRdActivity::class.java)
+        val intent = Intent(this, LettersRdActivity::class.java)
         intent.putExtra("Multiplayer", "Multiplayer")
         startActivity(intent)
     }
