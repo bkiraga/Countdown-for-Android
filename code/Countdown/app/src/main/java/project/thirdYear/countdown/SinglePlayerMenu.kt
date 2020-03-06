@@ -14,6 +14,15 @@ class SinglePlayerMenu : AppCompatActivity() {
 
         val numbersRdButton: Button = findViewById(R.id.numbersRdButton)
         val lettersRdButton: Button = findViewById(R.id.lettersRdButton)
+        val conundrumRdButton: Button = findViewById(R.id.conundrumRdButton)
+        val normalGameButton: Button = findViewById(R.id.normalGameButton)
+
+
+        normalGameButton.setOnClickListener {
+            val intent = Intent(this,LettersRdActivity::class.java)
+            intent.putExtra("GameType","NormalGame")
+            startActivity(intent)
+        }
 
         numbersRdButton.setOnClickListener {
             val intent = Intent(this, NumbersRdActivity::class.java)
