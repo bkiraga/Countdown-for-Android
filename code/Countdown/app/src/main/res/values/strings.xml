@@ -95,6 +95,8 @@
     <string name="smallNumberButton">small number</string>
     <string name="targetNo">000</string>
     <string name="solveButton">solve</string>
+    <string name="numberTimer">30</string>
+    <string name="letterTimer">30</string>
 
 
 </resources>

@@ -521,4 +521,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
+    <TextView
+        android:id="@+id/numberTimer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/numberTimer"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/solveButton"
+        app:layout_constraintEnd_toStartOf="@+id/smallNumberButton"
+        app:layout_constraintStart_toEndOf="@+id/largeNumberButton"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

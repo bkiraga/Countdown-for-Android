@@ -4,12 +4,14 @@ import android.content.ClipData
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.DragEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_letters_rd.*
 import kotlinx.android.synthetic.main.activity_numbers_rd.*
 import kotlinx.android.synthetic.main.activity_single_player_menu.*
 import java.util.*
@@ -70,6 +72,19 @@ class NumbersRdActivity : AppCompatActivity() {
         var numList = arrayListOf<Int>()
         var counter : Int = 0
         var target : Int = 0
+        var currentTime: Int = 30
+
+        val countDownTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisLeft: Long) {
+                currentTime = numberTimer.getText().toString().toInt()
+                currentTime -= 1
+                numberTimer.text = currentTime.toString()
+
+            }
+            override fun onFinish() {
+                solveButton.performClick()
+            }
+        }
 
         fun assign(counter : Int) : TextView {
             var numF = when (counter) {
@@ -103,6 +118,7 @@ class NumbersRdActivity : AppCompatActivity() {
                 largeNumberButton.setVisibility(View.INVISIBLE)
                 solveButton.setEnabled(true)
                 clearTile.setEnabled(true)
+                countDownTimer.start()
             }
 
         }
@@ -124,6 +140,7 @@ class NumbersRdActivity : AppCompatActivity() {
                 smallNumberButton.setEnabled(false)
                 smallNumberButton.setVisibility(View.INVISIBLE)
                 solveButton.setEnabled(true)
+                countDownTimer.start()
             }
         }
 
