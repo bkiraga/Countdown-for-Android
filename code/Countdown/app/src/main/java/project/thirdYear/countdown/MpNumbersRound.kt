@@ -46,8 +46,10 @@ class MpNumbersRound : AppCompatActivity() {
         btn_chat_send.setOnClickListener{
 
             var messageInput = findViewById(R.id.chat_input) as EditText
+
             var textM = messageInput.text.toString()
             Toast.makeText(this, "$textM", Toast.LENGTH_LONG).show()
+
             Log.d(TAG, "text is $textM")
             //val message = Message(textM, System.currentTimeMillis())
 

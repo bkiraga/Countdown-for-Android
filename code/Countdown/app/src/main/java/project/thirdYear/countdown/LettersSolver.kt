@@ -94,31 +94,17 @@ class LettersSolver {
             return perms
         }
 
-        fun solutionLength(word:String):Pair<Int, String>{
-            var mutex = Mutex()
-                var node = root
-                var length = 0
-                var solution = ""
-                var counter = 0
 
-                for (char in word){
-                    counter += 1
-
-                    if (!node.children.containsKey(char.toString())){
-                        Log.d(TAG, "length: $length solution: $solution")
-                        return Pair(length, solution)
-                    }
-
-                    if (node.isWord){
-                        length = counter
-                        solution = word.substring(0, counter)
-                        Log.d(TAG, "length: $length solution: $solution")
-                    }
-                    node = node.children[char.toString()]!!
+        fun solutionExists(word:String):Boolean{
+            var node = root
+            for (char in word){
+                if (!node.children.containsKey(char.toString())){
+                    return false
                 }
-                Log.d(TAG, "length: $length solution: $solution")
-                return Pair(length, solution)
+                node = node.children[char.toString()]!!
             }
+            return true
+        }
 
 
 

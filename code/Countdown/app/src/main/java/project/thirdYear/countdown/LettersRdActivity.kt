@@ -18,7 +18,13 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_letters_rd.*
+import kotlinx.android.synthetic.main.activity_letters_rd2.*
 import java.util.*
 import project.thirdYear.countdown.DatabaseManager
 import java.io.File
@@ -27,17 +33,36 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.system.measureTimeMillis
 
 class LettersRdActivity : AppCompatActivity() {
 
+    private var mAuth = FirebaseAuth.getInstance()
+
+    private val database = FirebaseDatabase.getInstance()
+    private val match = database.getReference("games/")
+
+    private val isFull = database.getReference("games/matchID/")
+
+    private val letRdRef = database.getReference("games/matchID/rounds/0")
+
+    private val scoresRef = database.getReference("games/matchID/scores")
+
+    var senderID = mAuth.currentUser!!.uid
+
+    var theWord: String = ""
     var activityCount = 0
     val scoreIntentKey = "score"
     var userScore = 0
+
     var usedTiles = arrayListOf<TextView>()
-    var allTiles = arrayListOf<TextView>()
+    var allLetters = arrayListOf<String>()
+
     var currentTime: Int = 30
+
     val countDownTimer = object : CountDownTimer(30000, 1000) {
+        var mutex = Mutex()
         override fun onTick(millisLeft: Long) {
             currentTime = letterTimer.getText().toString().toInt()
             currentTime -= 1
@@ -45,9 +70,14 @@ class LettersRdActivity : AppCompatActivity() {
 
         }
         override fun onFinish() {
-            solveLts.performClick()
+            CoroutineScope(Dispatchers.Main).launch{
+                mutex.withLock{
+                    //solveLts.performClick()
+                }
+            }
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,27 +87,81 @@ class LettersRdActivity : AppCompatActivity() {
             //controlFlowFlag = "x"
             Toast.makeText(this, "letters", Toast.LENGTH_LONG).show()
         }
-        else {
+        else if (intent.getStringExtra("flag") == "conundrum"){
             setTitle("Conundrum Round")
             //controlFlowFlag = "y"
             Toast.makeText(this, "conundrum", Toast.LENGTH_LONG).show()
         }
-        setUp()
-        CoroutineScope(Dispatchers.Main).launch {
-            checkUserWord(usedTiles, allTiles)
 
+
+        setUp()
+        var trie:LettersSolver.Trie
+        var letters:String
+        CoroutineScope(Dispatchers.Main).launch {
+            trie = checkUserWord(usedTiles)
+            findSolution(trie, allLetters)
         }
 
     }
 
-    fun getRandomNumber(){
+    fun checkOpponentSolution():String{
+        var opponentSolution = ""
+        //
+        letRdRef.addValueEventListener(object : ValueEventListener{
+
+            override fun onDataChange(dataSnap: DataSnapshot) {
+                for (child in dataSnap.children){
+                    if (child.key != senderID){
+                        opponentSolution = child.value.toString()
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.d(TAG, "error is: $error")
+            }
+        })
+        return opponentSolution
+    }
+
+    fun checkAvailableGames(){
+        Toast.makeText(this, "wwwhat", Toast.LENGTH_LONG).show()
+        val fullValue = ""
+        isFull.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(databaseSnap: DataSnapshot) {
+                for (child in databaseSnap.children){
+                    Log.d(TAG, "child is $child")
+                    Toast.makeText(this@LettersRdActivity, "DB says: $child", Toast.LENGTH_LONG).show()
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d(TAG, "error is $error")
+            }
+        })
 
     }
 
-    //suspend fun conundrumStyle(nineLetterWords:ArrayList<String>){
+    fun sendUserSolution(word: String){
 
+        letRdRef.child(senderID).setValue(word)
+    }
 
-    //}
+    fun checkMultiplayer(intent: Intent, word: String){
+        val isMultiplayer = intent.getStringExtra("Multiplayer")
+        Toast.makeText(this, "checking multiplayer", Toast.LENGTH_LONG).show()
+        if (isMultiplayer == "true"){
+
+            sendUserSolution(word)
+            writeScore(word)
+        }
+    }
+
+    fun writeScore(word:String){
+        var score = createScore(word)
+        scoresRef.child(senderID).setValue(score)
+    }
 
     fun gameHandler(){
         val gameType = intent.getStringExtra("gameType")
@@ -125,25 +209,79 @@ class LettersRdActivity : AppCompatActivity() {
         return text
     }
 
+    fun setListenersOnTiles(){
+        lt1.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt1)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt1.startDrag(clipdata, dragShadow, lt1, 0)
+            Toast.makeText(this, "is this what? ${lt1.text}", Toast.LENGTH_LONG).show()
+            true
+        }
+        lt2.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt2)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt2.startDrag(clipdata, dragShadow, lt2, 0)
+            Toast.makeText(this, "is this what? ${lt2.text}", Toast.LENGTH_LONG).show()
+            true
+        }
+        lt3.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt3)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt3.startDrag(clipdata, dragShadow, lt3, 0)
+            Toast.makeText(this, "is this what? ${lt3.text}", Toast.LENGTH_LONG).show()
+            true
+        }
+        lt4.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt4)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt4.startDrag(clipdata, dragShadow, lt4, 0)
+            Toast.makeText(this, "is this what? ${lt4.text}", Toast.LENGTH_SHORT).show()
+            true
+        }
+        lt5.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt5)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt5.startDrag(clipdata, dragShadow, lt5, 0)
+            Toast.makeText(this, "is this what? ${lt5.text}", Toast.LENGTH_SHORT).show()
+            true
+        }
+        lt6.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt6)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt6.startDrag(clipdata, dragShadow, lt6, 0)
+            Toast.makeText(this, "is this what? ${lt6.text}", Toast.LENGTH_SHORT).show()
+            true
+        }
+        lt7.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt7)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt7.startDrag(clipdata, dragShadow, lt7, 0)
+            Toast.makeText(this, "is this what? ${lt7.text}", Toast.LENGTH_SHORT).show()
+            true
+        }
+        lt8.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt8)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt8.startDrag(clipdata, dragShadow, lt8, 0)
+            Toast.makeText(this, "is this what? ${lt8.text}", Toast.LENGTH_SHORT).show()
+            true
+        }
+        lt9.setOnLongClickListener {
+            var dragShadow = View.DragShadowBuilder(lt9)
+            var clipdata = ClipData.newPlainText("", "  ")
+            lt9.startDrag(clipdata, dragShadow, lt9, 0)
+            Toast.makeText(this, "is this what? ${lt9.text}", Toast.LENGTH_LONG).show()
+            true
+        }
+
+    }
+
     fun setUp(){
-        val vowelButton: Button = findViewById(R.id.vowelButton)
-        val consonantButton: Button = findViewById(R.id.consonantButton)
-        val lt1: TextView = findViewById(R.id.lt1)
-        val lt2: TextView = findViewById(R.id.lt2)
-        val lt3: TextView = findViewById(R.id.lt3)
-        val lt4: TextView = findViewById(R.id.lt4)
-        val lt5: TextView = findViewById(R.id.lt5)
-        val lt6: TextView = findViewById(R.id.lt6)
-        val lt7: TextView = findViewById(R.id.lt7)
-        val lt8: TextView = findViewById(R.id.lt8)
-        val lt9: TextView = findViewById(R.id.lt9)
-        val clearLtTile : TextView = findViewById(R.id.clearLtTile)
-        val clearAllLtButton : TextView = findViewById(R.id.clearAllLtButton)
         clearLtTile.setVisibility(View.INVISIBLE)
         clearLtTile.setEnabled(false)
         clearAllLtButton.setVisibility(View.INVISIBLE)
         clearAllLtButton.setEnabled(false)
-
+        checkAvailableGames()
         var vowels = arrayListOf<String>("A", "E", "I", "O", "U")
         var consonants = arrayListOf<String>("B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z")
         var counter: Int = 0
@@ -167,6 +305,7 @@ class LettersRdActivity : AppCompatActivity() {
                 var index = Random().nextInt(vowels.size)
                 var vowel = vowels.get(index)
                 var ltF = assign(counter)
+                allLetters.add(vowel.trim())
                 ltF.text = vowel.toString()
                 counter += 1
                 if (counter == 9){
@@ -175,16 +314,17 @@ class LettersRdActivity : AppCompatActivity() {
                     consonantButton.setVisibility(View.INVISIBLE)
                     vowelButton.setEnabled(false)
                     consonantButton.setEnabled(false)
-
                 }
             }
         }
         consonantButton.setOnClickListener {
+            Log.d(TAG, "AllLetters is ${allLetters.toString()}")
             if (counter < 9) {
                 var index = Random().nextInt(consonants.size)
                 var consonant = consonants.get(index)
                 var ltF = assign(counter)
                 ltF.text = consonant.toString()
+                allLetters.add(consonant.toString().trim())
                 counter += 1
                 if (counter == 9){
                     countDownTimer.start()
@@ -196,65 +336,11 @@ class LettersRdActivity : AppCompatActivity() {
             }
         }
 
-        lt1.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt1)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt1.startDrag(clipdata, dragShadow, lt1, 0)
-            true
-        }
-        lt2.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt2)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt2.startDrag(clipdata, dragShadow, lt2, 0)
-            true
-        }
-        lt3.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt3)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt3.startDrag(clipdata, dragShadow, lt3, 0)
-            true
-        }
-        lt4.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt4)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt4.startDrag(clipdata, dragShadow, lt4, 0)
-            true
-        }
-        lt5.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt5)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt5.startDrag(clipdata, dragShadow, lt5, 0)
-            true
-        }
-        lt6.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt6)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt6.startDrag(clipdata, dragShadow, lt6, 0)
-            true
-        }
-        lt7.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt7)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt7.startDrag(clipdata, dragShadow, lt7, 0)
-            true
-        }
-        lt8.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt8)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt8.startDrag(clipdata, dragShadow, lt8, 0)
-            true
-        }
-        lt9.setOnLongClickListener {
-            var dragShadow = View.DragShadowBuilder(lt9)
-            var clipdata = ClipData.newPlainText("", "  ")
-            lt9.startDrag(clipdata, dragShadow, lt9, 0)
-            true
-        }
+        setListenersOnTiles()
 
         var dragCount = 0
         //usedTiles =
         var movedLtTiles = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
-
 
         fun clearAllLts(){
             for (tile in usedTiles) {
@@ -268,12 +354,11 @@ class LettersRdActivity : AppCompatActivity() {
             dragCount = 0
         }
 
-
         clearAllLtButton.setOnClickListener {
             clearAllLts()
         }
 
-         clearLtTile.setOnClickListener {
+        clearLtTile.setOnClickListener {
             for (movedTile in movedLtTiles.reversed()){
                 if (movedTile.getText() != ""){
                     movedTile.text = ""
@@ -287,7 +372,6 @@ class LettersRdActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         fun assignTargetLtTile(dragCount:Int): TextView {
             var targetLtTile = when (dragCount){
@@ -303,7 +387,6 @@ class LettersRdActivity : AppCompatActivity() {
             }
             return targetLtTile
         }
-
 
         val drag = View.OnDragListener{
             view, event ->
@@ -345,88 +428,88 @@ class LettersRdActivity : AppCompatActivity() {
             true
 
         }
+
         clearAllLts()
         letterTargetField.setOnDragListener(drag)
 
-        allTiles = arrayListOf<TextView>(lt1,lt2,lt3,lt4,lt5,lt6,lt7,lt8,lt9)
     }
 
-    suspend fun checkUserWord(usedTiles:ArrayList<TextView>, allTiles: ArrayList<TextView>) {
+    suspend fun checkUserWord(usedTiles:ArrayList<TextView>):LettersSolver.Trie{
         var trie = withContext(Dispatchers.Main){
             return@withContext getTrie().await()
         }
 
-        var btnSolv = findViewById(R.id.solveLts) as Button
-
-        btnSolv.setOnClickListener {
-            activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
+        solveLts.setOnClickListener {
             countDownTimer.cancel()
             var word = ""
             for (tile in usedTiles){
                 word += tile.text
-                //Toast.makeText(this, "Tile text: ${tile.text}", Toast.LENGTH_SHORT).show()
             }
-
+            theWord = word
+            checkMultiplayer(intent, theWord)
             var exists = trie.search_word(word)
-            Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
-            Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
-
-            CoroutineScope(Dispatchers.Main).launch{
-                val mutex = Mutex()
-                mutex.withLock {
-                    var sol =  findSolution(trie, allTiles).second
-                    Toast.makeText(this@LettersRdActivity, "best Solution is: $sol", Toast.LENGTH_LONG).show()
-                }
-
+            if (exists){
+                Toast.makeText(this, "The word $word exists.", Toast.LENGTH_LONG).show()
+            } else{
+                Toast.makeText(this, "The word $word doesn't exist.", Toast.LENGTH_LONG).show()
             }
+
             val letterSolution = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
-            val intent = Intent(this, LettersRdActivity2 ::class.java)
-            var s:String = ""
-            for (letter in letterSolution){
-                if (letter.getText() != ""){
-                    s += letter.getText().toString()
-                }
-            }
-            intent.putExtra("playerLetterSolution", s)
-            intent.putExtra("exists",exists)
-            intent.putExtra("activityCount", activityCount)
-            startActivity(intent)
-
-            //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()
+            startNextRound(word)
         }
-
+        return trie
 
     }
 
-    fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
-         var letters = allTiles.map { it.text.toString() }
-         var allLetterSets = trie.permutation(letters)
-         var allWords = ArrayList<String>()
+    fun startNextRound(word: String){
+        //val currentRound = intent.getStringExtra("flag")
+        //val isMultiPlayer = intent.getStringExtra("Multiplayer")
+        val intent = Intent(this, LettersRdActivity2 ::class.java)
 
-         var bestSOlSize = 9
-         var bestSolution = ""
-         var solutionSize = 0
+        var opponentSol = checkOpponentSolution()
 
-         for (word in allWords){
+        intent.putExtra("opsolution", opponentSol)
+        intent.putExtra("solution", word)
+        //if (isMultiPlayer.toBoolean()){
+        //    intent.putExtra("Multiplayer", "true")
+        //}
+        //intent.putExtra("score", userScore)
+        //if (currentRound == "letters"){
+       //     intent.putExtra("flag", "letters")
+        //} else if (currentRound == "conundrum"){
+        //    intent.putExtra("flag", "conundrum")
+        //}
 
-             var posSol = trie.solutionLength(word)
-             Toast.makeText(this, "sol size: ${posSol.first} sol: ${posSol.second}", Toast.LENGTH_LONG).show()
-             Log.d(TAG, "sol size: ${posSol.first} sol: ${posSol.second}")
-             if (solutionSize < posSol.first){
 
-                 solutionSize = posSol.first
-                 bestSolution = posSol.second
-                 Log.d(TAG, "Async: $bestSolution")
-             }
-             if (solutionSize == bestSOlSize){
-                 bestSolution = posSol.second
-                 return Pair(77, "TESTING")
-             }
-         }
-         Log.d(TAG, "bestSol w Context : $bestSolution")
-         return Pair(777, "AGAIN TESTING")
-     }
+
+        startActivity(intent)
+    }
+
+    fun createScore(word: String):Int{
+        when (word.length){
+            5 -> return 5
+            6 -> return 12
+            7 -> return 21
+            8 -> return 32
+            9 -> return 45
+            else -> {
+                return 4
+            }
+        }
+    }
+
+    fun findSolution(trie:LettersSolver.Trie, allLetters:ArrayList<String>):String{
+        // [O, E, L, Y, Z, Q, J, S]
+        for (let1 in allLetters){
+            for (let2 in allLetters){
+                if (trie.search_word(let1+let2)){
+                    var twoLetW = let1+let2
+                    var minusTwo = 
+                    for (let3 in allLetters){
+
+                    }
+
+    }
 
     public fun dbManager(word:String):MutableList<String> {
 
@@ -493,11 +576,13 @@ class LettersRdActivity : AppCompatActivity() {
                 for (word in words){
                     if (word.trim().length == 9){
                         nineLetterWords.add(word)
+                        Log.d(TAG, "Nine letter word: $word")
                     }
                 }
             }
 
         }
+        Log.d(TAG, "There are ${nineLetterWords.size} nine letter words")
         return nineLetterWords
     }
 
