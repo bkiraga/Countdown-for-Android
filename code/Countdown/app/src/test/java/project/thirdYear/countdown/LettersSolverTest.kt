@@ -12,7 +12,7 @@ class LettersSolverTest{
     fun testNodeCharacterAttribute(){
         val node = Node("t")
         assertEquals(node.character, "t")
-        assertNotEquals(node.character, "")
+        assertNotEquals(node.character, "") 
         assertNotEquals(node.character, null)
     }
 
