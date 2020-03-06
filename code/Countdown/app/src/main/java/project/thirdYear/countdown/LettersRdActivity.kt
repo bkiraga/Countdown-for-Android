@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.DragEvent
 import android.view.View
 import android.util.Log
@@ -86,6 +87,19 @@ class LettersRdActivity : AppCompatActivity() {
         var vowels = arrayListOf<String>("A", "E", "I", "O", "U")
         var consonants = arrayListOf<String>("B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z")
         var counter: Int = 0
+        var currentTime: Int = 30
+
+        val countDownTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisLeft: Long) {
+                currentTime = letterTimer.getText().toString().toInt()
+                currentTime -= 1
+                letterTimer.text = currentTime.toString()
+
+            }
+            override fun onFinish() {
+                solveLts.performClick()
+            }
+        }
 
         fun assign(counter: Int): TextView {
             var ltF = when (counter) {
@@ -109,6 +123,7 @@ class LettersRdActivity : AppCompatActivity() {
                 ltF.text = vowel.toString()
                 counter += 1
                 if (counter == 9){
+                    countDownTimer.start()
                     vowelButton.setVisibility(View.INVISIBLE)
                     consonantButton.setVisibility(View.INVISIBLE)
                     vowelButton.setEnabled(false)
@@ -125,6 +140,7 @@ class LettersRdActivity : AppCompatActivity() {
                 ltF.text = consonant.toString()
                 counter += 1
                 if (counter == 9){
+                    countDownTimer.start()
                     vowelButton.setVisibility(View.INVISIBLE)
                     consonantButton.setVisibility(View.INVISIBLE)
                     vowelButton.setEnabled(false)

@@ -450,4 +450,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.66" />
 
+    <TextView
+        android:id="@+id/letterTimer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/letterTimer"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/solveLts"
+        app:layout_constraintEnd_toStartOf="@+id/guideline34"
+        app:layout_constraintStart_toStartOf="@+id/guideline81"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
