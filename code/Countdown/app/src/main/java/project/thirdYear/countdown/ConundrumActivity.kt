@@ -1,35 +1,26 @@
 package project.thirdYear.countdown
 
 import android.content.ClipData
-import android.graphics.Color
-import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import android.nfc.Tag
-import android.os.Build
+import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.DragEvent
 import android.view.View
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_letters_rd.*
-import java.util.*
-import project.thirdYear.countdown.DatabaseManager
-import java.io.File
-import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.system.measureTimeMillis
 
-class LettersRdActivity : AppCompatActivity() {
+class ConundrumActivity : AppCompatActivity() {
 
     var activityCount = 0
     val scoreIntentKey = "score"
@@ -51,7 +42,7 @@ class LettersRdActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_letters_rd)
+        setContentView(R.layout.activity_conundrum)
         if (intent.getStringExtra("flag") == "letters") {
             setTitle("Letters Round")
             //controlFlowFlag = "x"
@@ -273,7 +264,7 @@ class LettersRdActivity : AppCompatActivity() {
             clearAllLts()
         }
 
-         clearLtTile.setOnClickListener {
+        clearLtTile.setOnClickListener {
             for (movedTile in movedLtTiles.reversed()){
                 if (movedTile.getText() != ""){
                     movedTile.text = ""
@@ -306,7 +297,7 @@ class LettersRdActivity : AppCompatActivity() {
 
 
         val drag = View.OnDragListener{
-            view, event ->
+                view, event ->
             var dragView = event.getLocalState() as TextView
             event?.let{
                 when (event.action){
@@ -369,19 +360,19 @@ class LettersRdActivity : AppCompatActivity() {
             }
 
             var exists = trie.search_word(word)
-            Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
-            Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
+           // Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
 
             CoroutineScope(Dispatchers.Main).launch{
                 val mutex = Mutex()
                 mutex.withLock {
                     var sol =  findSolution(trie, allTiles).second
-                    Toast.makeText(this@LettersRdActivity, "best Solution is: $sol", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(this@LettersRdActivity, "best Solution is: $sol", Toast.LENGTH_LONG).show()
                 }
 
             }
             val letterSolution = arrayListOf<TextView>(movedLt1,movedLt2,movedLt3,movedLt4,movedLt5,movedLt6,movedLt7,movedLt8,movedLt9)
-            val intent = Intent(this, LettersRdActivity2 ::class.java)
+            val intent = Intent(this, ScoreboardActivity ::class.java)
             var s:String = ""
             for (letter in letterSolution){
                 if (letter.getText() != ""){
@@ -400,33 +391,33 @@ class LettersRdActivity : AppCompatActivity() {
     }
 
     fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
-         var letters = allTiles.map { it.text.toString() }
-         var allLetterSets = trie.permutation(letters)
-         var allWords = ArrayList<String>()
+        var letters = allTiles.map { it.text.toString() }
+        var allLetterSets = trie.permutation(letters)
+        var allWords = ArrayList<String>()
 
-         var bestSOlSize = 9
-         var bestSolution = ""
-         var solutionSize = 0
+        var bestSOlSize = 9
+        var bestSolution = ""
+        var solutionSize = 0
 
-         for (word in allWords){
+        for (word in allWords){
 
-             var posSol = trie.solutionLength(word)
-             Toast.makeText(this, "sol size: ${posSol.first} sol: ${posSol.second}", Toast.LENGTH_LONG).show()
-             Log.d(TAG, "sol size: ${posSol.first} sol: ${posSol.second}")
-             if (solutionSize < posSol.first){
+            var posSol = trie.solutionLength(word)
+            Toast.makeText(this, "sol size: ${posSol.first} sol: ${posSol.second}", Toast.LENGTH_LONG).show()
+            Log.d(TAG, "sol size: ${posSol.first} sol: ${posSol.second}")
+            if (solutionSize < posSol.first){
 
-                 solutionSize = posSol.first
-                 bestSolution = posSol.second
-                 Log.d(TAG, "Async: $bestSolution")
-             }
-             if (solutionSize == bestSOlSize){
-                 bestSolution = posSol.second
-                 return Pair(77, "TESTING")
-             }
-         }
-         Log.d(TAG, "bestSol w Context : $bestSolution")
-         return Pair(777, "AGAIN TESTING")
-     }
+                solutionSize = posSol.first
+                bestSolution = posSol.second
+                Log.d(TAG, "Async: $bestSolution")
+            }
+            if (solutionSize == bestSOlSize){
+                bestSolution = posSol.second
+                return Pair(77, "TESTING")
+            }
+        }
+        Log.d(TAG, "bestSol w Context : $bestSolution")
+        return Pair(777, "AGAIN TESTING")
+    }
 
     public fun dbManager(word:String):MutableList<String> {
 
@@ -454,7 +445,7 @@ class LettersRdActivity : AppCompatActivity() {
 
     }
 
-    fun populateDB(db:SQLiteDatabase):String{
+    fun populateDB(db: SQLiteDatabase):String{
 
         Toast.makeText(this, "populating", Toast.LENGTH_SHORT).show()
         var text = applicationContext.assets.open("words.txt").bufferedReader().use {
@@ -517,13 +508,13 @@ class LettersRdActivity : AppCompatActivity() {
         }
     }
 
-    suspend fun getTrie():Deferred<LettersSolver.Trie>{
+    suspend fun getTrie(): Deferred<LettersSolver.Trie> {
         var populatedTrie = withContext(Dispatchers.Main){
             //running on separate thread
             var trie = async { createPopulatedTrie(readTxtFile()) }
             var size = trie.await().getTrieSize()
 
-            Toast.makeText(this@LettersRdActivity, "Trie has $size many items", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this@LettersRdActivity, "Trie has $size many items", Toast.LENGTH_LONG).show()
 
             //var exists = trie.await().search_word("AARDVARK".trim())
             //var exits = trie.await().search_word("AARONITE".trim())

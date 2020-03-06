@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_letters_rd2.*
 import kotlinx.android.synthetic.main.activity_numbers_rd2.*
@@ -17,6 +18,7 @@ class NumbersRdActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_numbers_rd2)
 
         setTitle("Numbers Round")
+        var activityCount = intent.getIntExtra("activityCount",0)
         val countDownTimer = object : CountDownTimer(15000, 1000) {
             override fun onTick(millisLeft: Long) {
             }
@@ -189,8 +191,11 @@ class NumbersRdActivity2 : AppCompatActivity() {
 
         }
         nextRound2.setOnClickListener {
-            val intent = Intent(this,LettersRdActivity::class.java)
-            intent.putExtra("flag","conundrum")
+            activityCount += 1
+            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ConundrumActivity::class.java)
+            intent.putExtra("activityCount", activityCount)
+            intent.putExtra("flag", "conundrum")
             startActivity(intent)
         }
     }
