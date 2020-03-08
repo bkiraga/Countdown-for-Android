@@ -169,6 +169,7 @@ class NumbersRdActivity : AppCompatActivity() {
         var number2Tiles = arrayListOf<TextView>(movedNum2,movedNum4,movedNum6,movedNum8,movedNum10)
 
         solveButton.setOnClickListener {
+            countDownTimer.cancel()
             val intent = Intent(this, NumbersRdActivity2 ::class.java)
             intent.putIntegerArrayListExtra("numList",numList)
             var activityCount = intent.getIntExtra("activityCount",0)
