@@ -17,12 +17,13 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.w3c.dom.Text
 
 class Login : AppCompatActivity() {
-
     private var mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setTitle("Log In")
+
         signIn()
         hasAccount()
     }
@@ -69,7 +70,7 @@ class Login : AppCompatActivity() {
 
     public fun signedInUI(){
         val intent = Intent(this, LettersRdActivity::class.java)
-        intent.putExtra("Multiplayer", "Multiplayer")
+        intent.putExtra("Multiplayer", "true")
         startActivity(intent)
     }
 

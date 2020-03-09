@@ -3,10 +3,19 @@ package project.thirdYear.countdown
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+<<<<<<< HEAD
 import android.widget.Toast
+=======
+import com.google.firebase.database.FirebaseDatabase
+>>>>>>> 62467d34e960d9e38620767015874846239cec15
 import kotlinx.android.synthetic.main.activity_scoreboard.*
 
 class ScoreboardActivity : AppCompatActivity() {
+
+    private val database = FirebaseDatabase.getInstance()
+
+    private val letRdRef = database.getReference("games/matchID/rounds/0")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,5 +40,10 @@ class ScoreboardActivity : AppCompatActivity() {
             val intent = Intent(this, SinglePlayerMenu::class.java)
             startActivity(intent)
         }
+    }
+
+    fun readRoundOneScore(){
+        //var opponentScore =
+        //user2Score1.setText()
     }
 }

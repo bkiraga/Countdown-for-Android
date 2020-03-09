@@ -6,7 +6,7 @@
     <string name="choice_text">Play Countdown</string>
     <string name="em_pw_field">Password...</string>
     <string name="e_btn_signin">Sign In</string>
-    <string name="email_info">Email Sign in</string>
+    <string name="email_info">Sign UP |^|</string>
     <string name="email_field">Email...</string>
     <string name="app_logo_description">App logo image</string>
     <string name="btn_create_account">Sign up</string>
@@ -18,7 +18,7 @@
     <string name="chat_input">Enter text...</string>
     <string name="btn_chat_send">Send</string>
     <string name="texts_received">Texts received</string>
-    <string name="signIn_info">Sign in</string>
+    <string name="signIn_info">Log in</string>
     <string name="btn_signIn">Sign In</string>
     <string name="signIn_passw_field">Password...</string>
     <string name="signIn_email_field">Email...</string>

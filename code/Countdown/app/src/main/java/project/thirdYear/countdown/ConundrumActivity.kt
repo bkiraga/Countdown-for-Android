@@ -368,7 +368,7 @@ class ConundrumActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch{
                 val mutex = Mutex()
                 mutex.withLock {
-                    var sol =  findSolution(trie, allTiles).second
+                    //var sol =  findSolution(trie, allTiles).second
                     //Toast.makeText(this@LettersRdActivity, "best Solution is: $sol", Toast.LENGTH_LONG).show()
                 }
 
@@ -398,7 +398,7 @@ class ConundrumActivity : AppCompatActivity() {
 
 
     }
-
+/*
     fun findSolution(trie:LettersSolver.Trie, allTiles:ArrayList<TextView>):Pair<Int, String>{
         var letters = allTiles.map { it.text.toString() }
         var allLetterSets = trie.permutation(letters)
@@ -410,23 +410,27 @@ class ConundrumActivity : AppCompatActivity() {
 
         for (word in allWords){
 
-            var posSol = trie.solutionLength(word)
-            Toast.makeText(this, "sol size: ${posSol.first} sol: ${posSol.second}", Toast.LENGTH_LONG).show()
-            Log.d(TAG, "sol size: ${posSol.first} sol: ${posSol.second}")
-            if (solutionSize < posSol.first){
+            var posSol = trie.solutionExists(word)
 
-                solutionSize = posSol.first
-                bestSolution = posSol.second
+
+            Toast.makeText(this, "sol size: ${posSol} sol: ${posSol}", Toast.LENGTH_LONG).show()
+            Log.d(TAG, "sol size: ${posSol} sol: ${posSol}")
+            if (solutionSize < posSol){
+
+                solutionSize = posSol
+                bestSolution = posSol
                 Log.d(TAG, "Async: $bestSolution")
             }
             if (solutionSize == bestSOlSize){
-                bestSolution = posSol.second
+                bestSolution = posSol
                 return Pair(77, "TESTING")
             }
         }
         Log.d(TAG, "bestSol w Context : $bestSolution")
         return Pair(777, "AGAIN TESTING")
     }
+
+ */
 
     public fun dbManager(word:String):MutableList<String> {
 

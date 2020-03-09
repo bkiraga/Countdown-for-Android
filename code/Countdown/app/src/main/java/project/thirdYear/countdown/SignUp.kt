@@ -33,16 +33,8 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_firebase_login2)
+        setTitle("Create Account")
         signUp()
-/*
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this,gso)
-
- */
     }
 
     public fun signUp(){
@@ -58,7 +50,6 @@ class SignUp : AppCompatActivity() {
 
             Toast.makeText(this, "$email and $password", Toast.LENGTH_LONG).show()
             createAccount(email, password)
-
         }
 
 
@@ -74,7 +65,9 @@ class SignUp : AppCompatActivity() {
     }
 
     public fun signedInUI(){
-        val intent = Intent(this, MpNumbersRound::class.java)
+        val intent = Intent(this, LettersRdActivity::class.java)
+        intent.putExtra("Multiplayer", "true")
+        intent.putExtra("flag", "letters")
         startActivity(intent)
     }
 
