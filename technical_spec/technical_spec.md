@@ -63,6 +63,7 @@ The components are:
 The android app is what the user interacts with directly.
 
 (fig.1)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/design.PNG)
 3. High-Level Design
 
 The following diagrams detail the high-level system architecture of the project. The following components of single player are reused in the multiplayer functionality of the game:
@@ -73,11 +74,14 @@ The following diagrams detail the high-level system architecture of the project.
     --Solver
     --Local Game Data
 
-The single player functionality is detailed in (fig.1). This encompasses the core functionality of the application.
+The single player functionality is detailed in (fig.2). This encompasses the core functionality of the application.
 
 (fig.2)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/local.PNG)
 
+Multiplayer functionality depicted in (fig.3).
 (fig.3)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/online.PNG)
 
 4. Problems and Resolution
 
@@ -115,14 +119,17 @@ Countdown for Android can be installed by following the following steps:
 This can be done by cloning the repo.
 
 (fig.4)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/cloning.PNG)
 
     Import the system into Android Studio by starting Android Studio on your computing device from which you want to initiate the installation and navigate to File and then hover with the mouse or navigate with the keyboard to New &gt; Import Project…
 
 Following the import wizard allows us to locate the system that we want to import and import it from the file system of the machine into Android Studio. This is depicted by the following:
 
 (fig.5)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/importing.png)
 
 (fig.6)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/actuallyimporting.png)
 
     Connect the target device to Android Studio, this can be achieved by either running the emulator from Android Studio, in case of virtual devices; or by plugging in a data transfer cable which has Developer Options enabled. Developer Options must be enabled in order to allow the installation of applications from another device.
 
@@ -130,19 +137,26 @@ Following the import wizard allows us to locate the system that we want to impor
     --On devices manufactured by Samsung, Developer Options can be enabled by navigating to Settings &gt; About Phone &gt; Software Information. In Software Information menu, the Build Number section must be tapped seven times in rapid succession. Developer Options can be turned on by toggling the On button from Off to On. This is detailed by the following:
 
 (fig.7) (fig.8) (fig.9) (fig.10)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/about_phone.jpg) 
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/software_info.jpg)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/on.jpg)
 
 (fig.11) (fig.12)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/developer_options.jpg)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/developer_options_details.jpg)
 
     --On similar devices manufactured by Huawei, there is one extra step required. USB (Universal Serial Bus) Debugging must be enabled also. The following details this:
 
     Run the application on the selected device. This step can be completed by navigating to Run and then Run 'app' as illustrated below:
 
 (fig.15)
-
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/usbDebugging.png)
     Enjoy the game experience.
 
 (fig.16)
-
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/letters_enjoy.png)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/numbers_enjoy.png)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/conundrum_enjoy.png)
 6.Testing
 
 The test strategy implemented was to have unit tests (implemented using Junit 4), integration tests (instrumented tests using AndroidX Test) and end to end tests.
@@ -164,3 +178,4 @@ The solvers have some very limited edge cases which they don't support for perfo
 User testing demonstrated that the users cared in particular about the user interface, thus an emphasis was placed on the user interface and user experience development.
 
 (fig.17)
+![](https://gitlab.computing.dcu.ie/buracg2/2020-ca326-gburac-countdownforandroid/blob/master/technical_spec/test-automation-pyramid.jpg)
