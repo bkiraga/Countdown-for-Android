@@ -359,8 +359,6 @@ class LettersRdActivity : AppCompatActivity() {
         var btnSolv = findViewById(R.id.solveLts) as Button
 
         btnSolv.setOnClickListener {
-            activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
             countDownTimer.cancel()
             var word = ""
             for (tile in usedTiles){
@@ -369,8 +367,8 @@ class LettersRdActivity : AppCompatActivity() {
             }
 
             var exists = trie.search_word(word)
-            Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
-            Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
+           // Toast.makeText(this, "Your $word exists: $exists", Toast.LENGTH_LONG).show()
+           // Toast.makeText(this, "ON Click", Toast.LENGTH_LONG).show()
 
             CoroutineScope(Dispatchers.Main).launch{
                 val mutex = Mutex()
@@ -390,7 +388,6 @@ class LettersRdActivity : AppCompatActivity() {
             }
             intent.putExtra("playerLetterSolution", s)
             intent.putExtra("exists",exists)
-            intent.putExtra("activityCount", activityCount)
             startActivity(intent)
 
             //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()

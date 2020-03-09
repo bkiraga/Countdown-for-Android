@@ -22,7 +22,6 @@ import kotlin.collections.ArrayList
 
 class ConundrumActivity : AppCompatActivity() {
 
-    var activityCount = 0
     val scoreIntentKey = "score"
     var userScore = 0
     var usedTiles = arrayListOf<TextView>()
@@ -43,6 +42,7 @@ class ConundrumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_conundrum)
+
         if (intent.getStringExtra("flag") == "letters") {
             setTitle("Letters Round")
             //controlFlowFlag = "x"
@@ -53,6 +53,8 @@ class ConundrumActivity : AppCompatActivity() {
             //controlFlowFlag = "y"
             Toast.makeText(this, "conundrum", Toast.LENGTH_LONG).show()
         }
+       // Toast.makeText(this, numsScore, Toast.LENGTH_LONG).show()
+
         setUp()
         CoroutineScope(Dispatchers.Main).launch {
             checkUserWord(usedTiles, allTiles)
@@ -346,12 +348,12 @@ class ConundrumActivity : AppCompatActivity() {
         var trie = withContext(Dispatchers.Main){
             return@withContext getTrie().await()
         }
+        var numsScore = intent.getStringExtra("numsScore")
+        var letterScore = intent.getStringExtra("letterScore")
 
         var btnSolv = findViewById(R.id.solveLts) as Button
 
         btnSolv.setOnClickListener {
-            activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
             countDownTimer.cancel()
             var word = ""
             for (tile in usedTiles){
@@ -379,9 +381,16 @@ class ConundrumActivity : AppCompatActivity() {
                     s += letter.getText().toString()
                 }
             }
+
+            var conundrumScore = 0
+            if (exists == true && word.length == 9){
+                conundrumScore = 9
+            }
+            intent.putExtra("conundrumScore", conundrumScore.toString())
+            intent.putExtra("numsScore", numsScore)
             intent.putExtra("playerLetterSolution", s)
             intent.putExtra("exists",exists)
-            intent.putExtra("activityCount", activityCount)
+            intent.putExtra("letterScore", letterScore)
             startActivity(intent)
 
             //Toast.makeText(this, "The best solution is: $bestSolution", Toast.LENGTH_LONG).show()

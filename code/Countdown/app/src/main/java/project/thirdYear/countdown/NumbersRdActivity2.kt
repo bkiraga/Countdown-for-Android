@@ -18,6 +18,7 @@ class NumbersRdActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_numbers_rd2)
 
         setTitle("Numbers Round")
+        var letterScore = intent.getStringExtra("letterScore")
         var activityCount = intent.getIntExtra("activityCount",0)
         val countDownTimer = object : CountDownTimer(15000, 1000) {
             override fun onTick(millisLeft: Long) {
@@ -62,13 +63,13 @@ class NumbersRdActivity2 : AppCompatActivity() {
             if (difference.absoluteValue <= 10 && difference.absoluteValue > 5){
                 score = 5
             }
-            else{
-                score = 0
-            }
-            return 0
+
+            return score
         }
 
         scoreText2.text = getScore(target,solution).toString()
+        //Toast.makeText(this,target.toString(), Toast.LENGTH_LONG).show()
+
 
 
 
@@ -191,10 +192,13 @@ class NumbersRdActivity2 : AppCompatActivity() {
 
         }
         nextRound2.setOnClickListener {
-            activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
+            countDownTimer.cancel()
             val intent = Intent(this, ConundrumActivity::class.java)
-            intent.putExtra("activityCount", activityCount)
+            intent.putExtra("numsScore", getScore(target,solution).toString())
+            intent.putExtra("letterScore", letterScore)
+            //
+            //
+            // Toast.makeText(this, getScore(target,solution).toString(), Toast.LENGTH_LONG).show()
             intent.putExtra("flag", "conundrum")
             startActivity(intent)
         }

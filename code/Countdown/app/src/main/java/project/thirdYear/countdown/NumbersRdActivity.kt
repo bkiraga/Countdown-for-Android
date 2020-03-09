@@ -34,6 +34,9 @@ class NumbersRdActivity : AppCompatActivity() {
 
         setTitle("Numbers Round")
 
+        var letterScore = intent.getStringExtra("letterScore")
+        Toast.makeText(this,letterScore, Toast.LENGTH_LONG).show()
+
         //Get id of UI elements
         val largeNumberButton : Button = findViewById(R.id.largeNumberButton)
         val smallNumberButton : Button = findViewById(R.id.smallNumberButton)
@@ -174,7 +177,7 @@ class NumbersRdActivity : AppCompatActivity() {
             intent.putIntegerArrayListExtra("numList",numList)
             var activityCount = intent.getIntExtra("activityCount",0)
             activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
 
             //Finds the result of user's operation
             var playerSolution: String = ""
@@ -187,7 +190,7 @@ class NumbersRdActivity : AppCompatActivity() {
             //user's operations saved
             intent.putExtra("playerSolution", playerSolution)
             intent.putExtra("target", target)
-            intent.putExtra("activityCount",activityCount)
+            intent.putExtra("letterScore", letterScore)
             var playerAnswer = arrayListOf<String>()
             var i = answerTiles.size - 1
 

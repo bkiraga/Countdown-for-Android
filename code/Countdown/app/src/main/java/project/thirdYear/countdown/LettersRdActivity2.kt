@@ -39,7 +39,6 @@ class LettersRdActivity2 : AppCompatActivity() {
             return score
         }
 
-        var activityCount = intent.getIntExtra("activityCount",0)
         var playerAnswer = intent.getStringExtra("playerLetterSolution")
         ltPlayerSolution.text = playerAnswer
         var exists = intent.getBooleanExtra("exists",false)
@@ -50,13 +49,9 @@ class LettersRdActivity2 : AppCompatActivity() {
         ltPlayerScore.text = score.toString()
 
         nextRound1.setOnClickListener {
-            activityCount += 1
-            Toast.makeText(this,activityCount.toString(), Toast.LENGTH_LONG).show()
             countDownTimer.cancel()
-            //if ( == "x") {
             val intent = Intent(this, NumbersRdActivity::class.java)
-            intent.putExtra("activityCount",activityCount)
-            intent.putExtra("totalScore", score)
+            intent.putExtra("letterScore", score.toString())
             startActivity(intent)
             //}
            // else if (controlFlowFlag == "y"){
