@@ -3,28 +3,26 @@ package project.thirdYear.countdown
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-import kotlinx.android.synthetic.main.activity_main.*
+import android.view.View
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        btn_multiplayer_choice.setOnClickListener{
+        val btn_mplayer = findViewById(R.id.btn_multiplayer_choice) as Button
+        btn_mplayer.setOnClickListener{
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
+        val singlePlayerButton : Button = findViewById(R.id.singlePlayerButton)
+
 
         singlePlayerButton.setOnClickListener {
             val intent = Intent(this, SinglePlayerMenu::class.java)
             startActivity(intent)
         }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
     }
 
     override fun onStart(){
@@ -35,16 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
 
-    override fun onStop() {
-        super.onStop()
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
 }
